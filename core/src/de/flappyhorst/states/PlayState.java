@@ -23,6 +23,11 @@ public class PlayState extends State{
      */
     private Texture bird;
 
+    /**
+     * Hintergrundbild
+     */
+    private Texture backgroundImage;
+
 
     //========================================================================//
     //                            Konstruktoren                               //
@@ -31,6 +36,7 @@ public class PlayState extends State{
     public PlayState(StateManager stateManager) {
         super(stateManager);
         bird = new Texture("flappy_horst_icon.png");
+        backgroundImage = new Texture("flappy_horst_background.png");
     }
 
     //========================================================================//
@@ -65,8 +71,11 @@ public class PlayState extends State{
         //Initialisiere den Batch
         batch.begin();
 
+        //Zeichne das Hintergrundbild
+        batch.draw(backgroundImage, 0,0);
+
         //Zeichne das Texture des Studenten
-        batch.draw(bird, Gdx.graphics.getWidth() / 2 - bird.getWidth() / 2, Gdx.graphics.getHeight() / 2 - bird.getHeight() / 2, 200, 200);
+        batch.draw(bird, Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2, 200, 200);
 
         //Beende den Batch
         batch.end();
