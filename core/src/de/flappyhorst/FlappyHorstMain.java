@@ -56,7 +56,7 @@ public class FlappyHorstMain extends ApplicationAdapter {
 		batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		//Zeichne den Vogel
-		batch.draw(bird, Gdx.graphics.getWidth()/2 - bird.getWidth()/2, Gdx.graphics.getHeight()/2 - bird.getHeight()/2);
+		batch.draw(bird, Gdx.graphics.getWidth()/2 - 100, Gdx.graphics.getHeight()/2, 250, 250);
 
 		//Beende den Batch
 		batch.end();
