@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import de.flappyhorst.States.InitialState;
+import de.flappyhorst.States.StateManager;
+
 //=========================================================================================//
 //                               FlappyHorst                                               //
 //=========================================================================================//
@@ -20,19 +23,21 @@ public class FlappyHorstMain extends ApplicationAdapter {
 	//========================================================================//
 
 	/**
-	 * Draws batched quads using indices
+	 * SpriteBatch
 	 */
-	SpriteBatch batch;
+	private SpriteBatch batch;
 
 	/**
 	 * Hintergrundbild
 	 */
-	Texture backgroundImage;
+	private Texture backgroundImage;
 
 	/**
 	 * Icon des Vogels bzw. Studenten
 	 */
-	Texture bird;
+	private Texture bird;
+
+	private StateManager stateManager;
 
 
 	//========================================================================//
@@ -45,10 +50,21 @@ public class FlappyHorstMain extends ApplicationAdapter {
 		backgroundImage = new Texture("flappy_horst_background.png");
 		bird = new Texture("flappy_horst_icon.png");
 
+		//Initialisiere den StateManager
+		stateManager = new StateManager();
+		stateManager.push(new InitialState(stateManager));
+
 	}
 
 	@Override
 	public void render () {
+		//Zeichnet alles neu (Refresh)
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		//Unterschied zwischen deltaTime und der Render Time
+		stateManager.update(Gdx.graphics.getDeltaTime());
+		stateManager.render(batch);
+
 		//Initialisiere den Batch
 		batch.begin();
 
@@ -56,11 +72,10 @@ public class FlappyHorstMain extends ApplicationAdapter {
 		batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		//Zeichne den Vogel
-		batch.draw(bird, Gdx.graphics.getWidth()/2 - bird.getWidth()/2, Gdx.graphics.getHeight()/2 - bird.getHeight()/2);
+		batch.draw(bird, Gdx.graphics.getWidth()/2 - 100, Gdx.graphics.getHeight()/2, 200, 200);
 
 		//Beende den Batch
 		batch.end();
-
 	}
 	
 	@Override
