@@ -1,4 +1,4 @@
-package de.flappyhorst.States;
+package de.flappyhorst.states;
 
 //========================================================================//
 //                            Imports                                     //
@@ -48,9 +48,27 @@ public abstract class State {
     //                             Methoden                                   //
     //========================================================================//
 
+    /**
+     * handleInput()
+     */
     protected abstract void handleInput();
 
+    /**
+     * Update
+     *
+     * @param deltaTime deltaTime
+     */
     public abstract void update(float deltaTime); //deltaTime ist die Different zwischen einem Frame zu dem Nächsten
 
+    /**
+     * Batch initsialisieren und die Textures zeichnen
+     *
+     * @param batch batch
+     */
     public abstract void render(SpriteBatch batch);
+
+    /**
+     * Entferne alle Textures
+     */
+    public abstract void dispose();
 }

@@ -1,4 +1,4 @@
-package de.flappyhorst.States;
+package de.flappyhorst.states;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
