@@ -8,6 +8,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import de.flappyhorst.Student;
+
 //=========================================================================================//
 //                                       PlayState                                         //
 //=========================================================================================//
@@ -19,9 +21,9 @@ public class PlayState extends State{
     //========================================================================//
 
     /**
-     * Texture des Vogels beziehungsweise des Studenten, der als Spielecharakter dient
+     * Objekt des Vogels beziehungsweise des Studenten, der als Spielecharakter dient
      */
-    private Texture bird;
+    private Student student;
 
     /**
      * Hintergrundbild
@@ -30,12 +32,17 @@ public class PlayState extends State{
 
 
     //========================================================================//
-    //                            Konstruktoren                               //
+    //                            Konstruktor/en                              //
     //========================================================================//
 
+    /**
+     * Konstruktor
+     *
+     * @param stateManager  stateManager
+     */
     public PlayState(StateManager stateManager) {
         super(stateManager);
-        bird = new Texture("flappy_horst_icon.png");
+        student = new Student(50,700);
         backgroundImage = new Texture("flappy_horst_background.png");
     }
 
@@ -48,7 +55,9 @@ public class PlayState extends State{
      */
     @Override
     protected void handleInput() {
-
+        if(Gdx.input.justTouched()){
+            student.jump();
+        }
     }
 
     /**
@@ -58,7 +67,8 @@ public class PlayState extends State{
      */
     @Override
     public void update(float deltaTime) {
-
+        handleInput();
+        student.update(deltaTime);
     }
 
     /**
@@ -75,7 +85,7 @@ public class PlayState extends State{
         batch.draw(backgroundImage, 0,0);
 
         //Zeichne das Texture des Studenten
-        batch.draw(bird, Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2, 200, 200);
+        batch.draw(student.getStudentTexture(), student.getPosition().x, student.getPosition().y, 200, 200);
 
         //Beende den Batch
         batch.end();

@@ -35,9 +35,14 @@ public abstract class State {
 
 
     //========================================================================//
-    //                            Konstruktoren                               //
+    //                            Konstruktor/en                              //
     //========================================================================//
 
+    /**
+     * Konstruktor
+     *
+     * @param stateManager  stateManager
+     */
     protected State(StateManager stateManager){
         this.stateManager = stateManager;
         camera = new OrthographicCamera();

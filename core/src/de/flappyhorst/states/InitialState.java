@@ -33,9 +33,14 @@ public class InitialState extends State{
     private Texture playBtn;
 
     //========================================================================//
-    //                            Konstruktoren                               //
+    //                            Konstruktor/en                              //
     //========================================================================//
 
+    /**
+     * Konstruktor
+     *
+     * @param stateManager  stateManager
+     */
     public InitialState(StateManager stateManager){
         super(stateManager);
         backgroundImage = new Texture("flappy_horst_background.png");

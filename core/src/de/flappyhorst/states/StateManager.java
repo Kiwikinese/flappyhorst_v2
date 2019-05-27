@@ -20,9 +20,12 @@ public class StateManager {
     private Stack<State> states;
 
     //========================================================================//
-    //                            Konstruktoren                               //
+    //                            Konstruktor/en                              //
     //========================================================================//
 
+    /**
+     * Konstruktor
+     */
     public StateManager(){
         states = new Stack<State>();
     }
