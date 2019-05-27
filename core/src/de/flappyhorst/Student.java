@@ -38,7 +38,6 @@ public class Student {
     private Texture student;
 
 
-
     //========================================================================//
     //                            Konstruktor/en                              //
     //========================================================================//
@@ -55,6 +54,7 @@ public class Student {
         velocity = new Vector3(0,0,0);
         student = new Texture("flappy_horst_icon.png");
     }
+
 
     //========================================================================//
     //                             Methoden                                   //
@@ -88,7 +88,7 @@ public class Student {
      * Lässt den Studenten nach oben springen
      */
     public void jump(){
-        velocity.y = 350; //Positive velocity
+        velocity.y = 300; //Positive velocity
     }
 
     /**

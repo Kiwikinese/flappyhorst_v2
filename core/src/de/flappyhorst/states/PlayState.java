@@ -8,6 +8,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import de.flappyhorst.BookStack;
+import de.flappyhorst.FlappyHorstMain;
 import de.flappyhorst.Student;
 
 //=========================================================================================//
@@ -30,6 +32,11 @@ public class PlayState extends State{
      */
     private Texture backgroundImage;
 
+    /**
+     * Objekt von BookStack
+     */
+    private BookStack bookStack;
+
 
     //========================================================================//
     //                            Konstruktor/en                              //
@@ -42,8 +49,10 @@ public class PlayState extends State{
      */
     public PlayState(StateManager stateManager) {
         super(stateManager);
-        student = new Student(50,700);
+        student = new Student(50,300);
         backgroundImage = new Texture("flappy_horst_background.png");
+        bookStack = new BookStack(100);
+        camera.setToOrtho(false, FlappyHorstMain.WIDTH/2, FlappyHorstMain.HEIGHT/2);
     }
 
     //========================================================================//
@@ -78,18 +87,25 @@ public class PlayState extends State{
      */
     @Override
     public void render(SpriteBatch batch) {
+
+        //Fokussiere Kamera auf einen Ausschnitt des Screens
+        batch.setProjectionMatrix(camera.combined);
+
         //Initialisiere den Batch
         batch.begin();
 
         //Zeichne das Hintergrundbild
-        batch.draw(backgroundImage, 0,0);
+        batch.draw(backgroundImage, camera.position.x - (camera.viewportWidth/2),camera.position.y - (camera.viewportHeight/4));
 
         //Zeichne das Texture des Studenten
-        batch.draw(student.getStudentTexture(), student.getPosition().x, student.getPosition().y, 200, 200);
+        batch.draw(student.getStudentTexture(), student.getPosition().x, student.getPosition().y, 50, 50);
+
+        //Zeichne die Bücherstapel
+        batch.draw(bookStack.getTopBookStack(), bookStack.getPositionTopBookStack().x, bookStack.getPositionTopBookStack().y);
+        batch.draw(bookStack.getBottomBookStack(), bookStack.getPositionBottomBookStack().x, bookStack.getPositionBottomBookStack().y);
 
         //Beende den Batch
         batch.end();
-
     }
 
     /**

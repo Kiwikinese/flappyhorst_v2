@@ -31,7 +31,7 @@ public class InitialState extends State{
     private Texture backgroundImage;
 
     /**
-     * Paly-Button, um das Spiel zu starten
+     * Play-Button, um das Spiel zu starten
      */
     private Texture playBtn;
     private Texture  image;
