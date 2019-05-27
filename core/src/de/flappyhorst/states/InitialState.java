@@ -5,8 +5,11 @@ package de.flappyhorst.states;
 //========================================================================//
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * Anfänglicher Status mit dem Play-Button
@@ -31,6 +34,7 @@ public class InitialState extends State{
      * Paly-Button, um das Spiel zu starten
      */
     private Texture playBtn;
+    private Texture  image;
 
     //========================================================================//
     //                            Konstruktor/en                              //
@@ -45,6 +49,8 @@ public class InitialState extends State{
         super(stateManager);
         backgroundImage = new Texture("flappy_horst_background.png");
         playBtn = new Texture("initial_screen_playbtn.png");
+        image = new Texture("logo.png");
+
     }
 
     //========================================================================//
@@ -88,6 +94,7 @@ public class InitialState extends State{
         //Zeichne den Play-Button
         batch.draw(playBtn, Gdx.graphics.getWidth() / 2 -160, Gdx.graphics.getHeight() / 2 - 850, 400, 200);
 
+        batch.draw(image, 50, Gdx.graphics.getHeight()-750,  Gdx.graphics.getWidth()-50, 400);
         //Beende den Batch
         batch.end();
     }
