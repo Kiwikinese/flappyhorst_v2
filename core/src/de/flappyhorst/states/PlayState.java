@@ -95,7 +95,7 @@ public class PlayState extends State{
         batch.begin();
 
         //Zeichne das Hintergrundbild
-        batch.draw(backgroundImage, camera.position.x - (camera.viewportWidth/2),camera.position.y - (camera.viewportHeight/4));
+        batch.draw(backgroundImage, camera.position.x - (camera.viewportWidth/2),camera.position.y - (camera.viewportHeight/2));
 
         //Zeichne das Texture des Studenten
         batch.draw(student.getStudentTexture(), student.getPosition().x, student.getPosition().y, 50, 50);
