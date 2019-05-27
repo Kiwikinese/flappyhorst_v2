@@ -34,7 +34,10 @@ public class InitialState extends State{
      * Paly-Button, um das Spiel zu starten
      */
     private Texture playBtn;
+    private Texture highschoreBtn;
+    private Texture settingsBtn;
     private Texture  image;
+
 
     //========================================================================//
     //                            Konstruktor/en                              //
@@ -49,7 +52,10 @@ public class InitialState extends State{
         super(stateManager);
         backgroundImage = new Texture("flappy_horst_background.png");
         playBtn = new Texture("initial_screen_playbtn.png");
+        highschoreBtn = new Texture("initial_screen_highscorebtn.png");
+        settingsBtn = new Texture("settings_btn.png");
         image = new Texture("logo.png");
+
 
     }
 
@@ -91,10 +97,13 @@ public class InitialState extends State{
         //Zeichne das Hintergrundbild an die Position 0, 0 und setze die Breite je nach Größe des Bildschirms
         batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        //Zeichne den Play-Button
-        batch.draw(playBtn, Gdx.graphics.getWidth() / 2 -160, Gdx.graphics.getHeight() / 2 - 850, 400, 200);
+        //Zeichne den Play-Button und den Highscore-Button
+        batch.draw(playBtn, Gdx.graphics.getWidth() / 2 -460, Gdx.graphics.getHeight() / 2 - 800, 400, 250);
+        batch.draw(highschoreBtn, Gdx.graphics.getWidth() / 2 +60, Gdx.graphics.getHeight() / 2 - 800, 400, 250);
+        batch.draw(settingsBtn, Gdx.graphics.getWidth() - 210, 10, 200, 200);
+        //Zeichne das Logo
+        batch.draw(image, 50, Gdx.graphics.getHeight()-750,  Gdx.graphics.getWidth()-50, 300);
 
-        batch.draw(image, 50, Gdx.graphics.getHeight()-750,  Gdx.graphics.getWidth()-50, 400);
         //Beende den Batch
         batch.end();
     }
