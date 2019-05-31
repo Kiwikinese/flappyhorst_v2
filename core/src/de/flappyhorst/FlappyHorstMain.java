@@ -21,10 +21,17 @@ public class FlappyHorstMain extends ApplicationAdapter {
 	//========================================================================//
 	//                         Globale Variablen                              //
 	//========================================================================//
+
+	/**
+	 * Breite des Spielfelds
+	 */
 	public static final int WIDTH = 480;
+
+	/**
+	 * Höhe des Spielfelds
+	 */
 	public static final int HEIGHT = 800;
-	public static final float SCALE = 0.5f;
-	public static final String TITLE = "FlappyHorst";
+
 	/**
 	 * SpriteBatch
 	 */
@@ -69,4 +76,5 @@ public class FlappyHorstMain extends ApplicationAdapter {
 	public void dispose () {
 
 	}
+
 }

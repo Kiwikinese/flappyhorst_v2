@@ -23,12 +23,17 @@ public class Student {
     private static final int GRAVITY = -15;
 
     /**
+     * Geschwindigkeit des Studenten
+     */
+    private static final int MOVEMENT = 50;
+
+    /**
      * Position des Studenten auf dem Screen
      */
     private Vector3 position;
 
     /**
-     * Geschwindigkeit
+     * Geschwindigkeit beim Hüpfen
      */
     private Vector3 velocity;
 
@@ -73,10 +78,10 @@ public class Student {
     velocity.scl(deltaTime);
 
     //Setze Position
-    position.add(0, velocity.y, 0);
+    position.add(MOVEMENT * deltaTime, velocity.y, 0);
 
     //Fallen ins "Unendliche" verhindern
-    if(position.y < 0){
+    if(position.y < 0 || position.y > 400){
         position.y = 0;
     }
 
@@ -88,7 +93,7 @@ public class Student {
      * Lässt den Studenten nach oben springen
      */
     public void jump(){
-        velocity.y = 300; //Positive velocity
+        velocity.y = 250; //Positive velocity
     }
 
     /**

@@ -5,11 +5,8 @@ package de.flappyhorst.states;
 //========================================================================//
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * Anfänglicher Status mit dem Play-Button
@@ -34,8 +31,20 @@ public class InitialState extends State{
      * Play-Button, um das Spiel zu starten
      */
     private Texture playBtn;
+
+    /**
+     * Button, um auf dem Highscore-Screen zu landen
+     */
     private Texture highschoreBtn;
+
+    /**
+     * Button, um in den Settings zu landen
+     */
     private Texture settingsBtn;
+
+    /**
+     * Logo des Spiels
+     */
     private Texture  image;
 
 
@@ -97,11 +106,10 @@ public class InitialState extends State{
         //Zeichne das Hintergrundbild an die Position 0, 0 und setze die Breite je nach Größe des Bildschirms
         batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        //Zeichne den Play-Button und den Highscore-Button
+        //Zeichne sämtliche Buttons
         batch.draw(playBtn, Gdx.graphics.getWidth() / 2 -460, Gdx.graphics.getHeight() / 2 - 800, 400, 250);
         batch.draw(highschoreBtn, Gdx.graphics.getWidth() / 2 +60, Gdx.graphics.getHeight() / 2 - 800, 400, 250);
         batch.draw(settingsBtn, Gdx.graphics.getWidth() - 210, 10, 200, 200);
-        //Zeichne das Logo
         batch.draw(image, 50, Gdx.graphics.getHeight()-750,  Gdx.graphics.getWidth()-50, 300);
 
         //Beende den Batch

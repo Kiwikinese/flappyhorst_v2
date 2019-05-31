@@ -7,7 +7,7 @@ package de.flappyhorst.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import com.badlogic.gdx.utils.Array;
 import de.flappyhorst.BookStack;
 import de.flappyhorst.FlappyHorstMain;
 import de.flappyhorst.Student;
@@ -23,6 +23,16 @@ public class PlayState extends State{
     //========================================================================//
 
     /**
+     * Spacing zwischen Bücherstapeln
+     */
+    private static final int BOOKSTACK_SPACING = 150;
+
+    /**
+     * Anzahl der Bücherstapel, die gleichzeitig im Spiel vorhanden sein sollen
+     */
+    private static final int BOOKSTACK_COUNT = 4;
+
+    /**
      * Objekt des Vogels beziehungsweise des Studenten, der als Spielecharakter dient
      */
     private Student student;
@@ -33,9 +43,9 @@ public class PlayState extends State{
     private Texture backgroundImage;
 
     /**
-     * Objekt von BookStack
+     * Array von Bücherstapeln
      */
-    private BookStack bookStack;
+    private Array<BookStack> bookStacks;
 
 
     //========================================================================//
@@ -51,8 +61,15 @@ public class PlayState extends State{
         super(stateManager);
         student = new Student(50,300);
         backgroundImage = new Texture("flappy_horst_background.png");
-        bookStack = new BookStack(100);
-        camera.setToOrtho(false, FlappyHorstMain.WIDTH/2, FlappyHorstMain.HEIGHT/2);
+        BookStack bookStack = new BookStack(0);
+        camera.setToOrtho(false, FlappyHorstMain.WIDTH / 2, FlappyHorstMain.HEIGHT/2);
+
+        //Initialisiere das Array von Bücherstapeln und füge die Bücherstapel dem Array hinzu
+        bookStacks = new Array<BookStack>();
+
+        for (int i = 1; i < BOOKSTACK_COUNT; i++){
+            bookStacks.add(new BookStack(i * (BOOKSTACK_SPACING + bookStack.getBookstackWidth())));
+        }
     }
 
     //========================================================================//
@@ -78,6 +95,19 @@ public class PlayState extends State{
     public void update(float deltaTime) {
         handleInput();
         student.update(deltaTime);
+
+        camera.position.x = student.getPosition().x + 80;
+
+        // Wenn ein Bücherstapel auserhalb des linken Bildschirmrandes ist, positioniere ihn neu an das Ende
+        for(BookStack bookStack : bookStacks){
+            if(camera.position.x - (camera.viewportWidth / 2) > bookStack.getPositionTopBookStack().x + bookStack.getTopBookStack().getWidth()){
+                bookStack.reposition(
+                        bookStack.getPositionTopBookStack().x + ((bookStack.getBookstackWidth() +
+                                BOOKSTACK_SPACING * BOOKSTACK_COUNT)));
+            }
+        }
+
+        camera.update();
     }
 
     /**
@@ -98,11 +128,14 @@ public class PlayState extends State{
         batch.draw(backgroundImage, camera.position.x - (camera.viewportWidth/2),camera.position.y - (camera.viewportHeight/2));
 
         //Zeichne das Texture des Studenten
-        batch.draw(student.getStudentTexture(), student.getPosition().x, student.getPosition().y, 50, 50);
+        batch.draw(student.getStudentTexture(), student.getPosition().x, student.getPosition().y, 40, 40);
 
         //Zeichne die Bücherstapel
-        batch.draw(bookStack.getTopBookStack(), bookStack.getPositionTopBookStack().x, bookStack.getPositionTopBookStack().y);
-        batch.draw(bookStack.getBottomBookStack(), bookStack.getPositionBottomBookStack().x, bookStack.getPositionBottomBookStack().y);
+        for(BookStack bookStack : bookStacks){
+            batch.draw(bookStack.getTopBookStack(), bookStack.getPositionTopBookStack().x, bookStack.getPositionTopBookStack().y);
+            batch.draw(bookStack.getBottomBookStack(), bookStack.getPositionBottomBookStack().x, bookStack.getPositionBottomBookStack().y);
+        }
+
 
         //Beende den Batch
         batch.end();

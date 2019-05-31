@@ -20,6 +20,11 @@ public class BookStack {
     //========================================================================//
 
     /**
+     * Breite des Bücherstapels
+     */
+    private static final int BOOKSTACK_WIDTH = 52;
+
+    /**
      * Positionierung des Stapels zwischen 0 und 130
      */
     private static final int FLUCTUATION = 130;
@@ -67,7 +72,7 @@ public class BookStack {
     /**
      * Konstruktor
      *
-     * @param x x
+     * @param x x-Achse
      */
     public BookStack(float x){
         TopBookStack = new Texture("toptube.png");
@@ -78,6 +83,20 @@ public class BookStack {
         positionBottomBookStack = new Vector2(x, positionTopBookStack.y - GAP_BETWEEN_STACKS - BottomBookStack.getHeight());
     }
 
+
+    //========================================================================//
+    //                             Methoden                                   //
+    //========================================================================//
+
+    /**
+     * Umpositionierung des Bücherstapels, der hinter dem Studenten liegt
+     *
+     * @param x x-Achse
+     */
+    public void reposition(float x){
+        positionTopBookStack.set(x, random.nextInt(FLUCTUATION) + GAP_BETWEEN_STACKS + LOWEST_OPENING);
+        positionBottomBookStack.set(x, positionTopBookStack.y - GAP_BETWEEN_STACKS - BottomBookStack.getHeight());
+    }
 
     //========================================================================//
     //                             Getter/Setter                              //
@@ -97,5 +116,9 @@ public class BookStack {
 
     public Vector2 getPositionBottomBookStack() {
         return positionBottomBookStack;
+    }
+
+    public int getBookstackWidth(){
+        return BOOKSTACK_WIDTH;
     }
 }
