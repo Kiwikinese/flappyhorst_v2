@@ -47,7 +47,7 @@ public class StateManager {
      * Methode, um den State aus dem Stack zu holen (wird aus dem Stack entfernt)
      */
     public void pop(){
-        states.pop();
+        states.pop().dispose();
     }
 
     /**

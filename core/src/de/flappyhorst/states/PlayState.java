@@ -8,9 +8,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import de.flappyhorst.BookStack;
+import de.flappyhorst.models.BookStack;
 import de.flappyhorst.FlappyHorstMain;
-import de.flappyhorst.Student;
+import de.flappyhorst.models.Student;
 
 //=========================================================================================//
 //                                       PlayState                                         //
@@ -30,7 +30,7 @@ public class PlayState extends State{
     /**
      * Anzahl der Bücherstapel, die gleichzeitig im Spiel vorhanden sein sollen
      */
-    private static final int BOOKSTACK_COUNT = 4;
+    private static final int BOOKSTACK_COUNT = 100;
 
     /**
      * Objekt des Vogels beziehungsweise des Studenten, der als Spielecharakter dient
@@ -59,16 +59,17 @@ public class PlayState extends State{
      */
     public PlayState(StateManager stateManager) {
         super(stateManager);
+
         student = new Student(50,300);
-        backgroundImage = new Texture("flappy_horst_background.png");
+        backgroundImage = new Texture("background_small.JPG");
         BookStack bookStack = new BookStack(0);
         camera.setToOrtho(false, FlappyHorstMain.WIDTH / 2, FlappyHorstMain.HEIGHT/2);
 
         //Initialisiere das Array von Bücherstapeln und füge die Bücherstapel dem Array hinzu
         bookStacks = new Array<BookStack>();
 
-        for (int i = 1; i < BOOKSTACK_COUNT; i++){
-            bookStacks.add(new BookStack(i * (BOOKSTACK_SPACING + bookStack.getBookstackWidth())));
+        for (int i = 1; i <= BOOKSTACK_COUNT; i++){
+            bookStacks.add(new BookStack(i * (BOOKSTACK_SPACING + bookStack.getBookStackWidth())));
         }
     }
 
@@ -102,12 +103,19 @@ public class PlayState extends State{
         for(BookStack bookStack : bookStacks){
             if(camera.position.x - (camera.viewportWidth / 2) > bookStack.getPositionTopBookStack().x + bookStack.getTopBookStack().getWidth()){
                 bookStack.reposition(
-                        bookStack.getPositionTopBookStack().x + ((bookStack.getBookstackWidth() +
+                        bookStack.getPositionTopBookStack().x + ((bookStack.getBookStackWidth() +
                                 BOOKSTACK_SPACING * BOOKSTACK_COUNT)));
             }
+
+            if(bookStack.collide(student.getRectangle())){
+                //Setze Spiel bei Kollision zurück
+                stateManager.set(new PlayState(stateManager));
+            }
+
         }
 
-        camera.update();
+        // Kamera folgt dem Spielecharakter
+       camera.update();
     }
 
     /**
@@ -136,6 +144,8 @@ public class PlayState extends State{
             batch.draw(bookStack.getBottomBookStack(), bookStack.getPositionBottomBookStack().x, bookStack.getPositionBottomBookStack().y);
         }
 
+        student.test();
+
 
         //Beende den Batch
         batch.end();
@@ -146,6 +156,12 @@ public class PlayState extends State{
      */
     @Override
     public void dispose() {
+        backgroundImage.dispose();
+        student.dispose();
 
+        for(BookStack bookStack : bookStacks){
+            bookStack.dispose();
+            System.out.println("PlaySate disposed");
+        }
     }
 }

@@ -1,11 +1,26 @@
-package de.flappyhorst;
+/**
+ * Die Klasse Student repräsentiert den Spielecharakter im Spiel. Hier werden sämtliche Werte,
+ * die für den Spielecharakter notwendig sind (z.B. Aussehen, Geschwindigkeit, Positionierung, etc.) festgelegt.
+ *
+ */
+
+
+package de.flappyhorst.models;
 
 //========================================================================//
 //                            Imports                                     //
 //========================================================================//
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+
+import de.flappyhorst.states.PlayState;
+import de.flappyhorst.states.StateManager;
 
 //=========================================================================================//
 //                                       Student                                           //
@@ -42,6 +57,15 @@ public class Student {
      */
     private Texture student;
 
+    /**
+     * Rechteck um den Spielecharakter zur Kollisionserkennung
+     */
+    private Rectangle rectangle;
+
+
+    private Circle circle;
+    private ShapeRenderer shapeRenderer;
+
 
     //========================================================================//
     //                            Konstruktor/en                              //
@@ -57,13 +81,28 @@ public class Student {
     public Student(int x, int y){
         position = new Vector3(x, y,0);
         velocity = new Vector3(0,0,0);
-        student = new Texture("flappy_horst_icon.png");
+        student = new Texture("bird.png");
+        rectangle = new Rectangle(x, y, student.getWidth(), student.getHeight());
+
+        circle = new Circle();
+        shapeRenderer = new ShapeRenderer();
+
     }
 
 
     //========================================================================//
     //                             Methoden                                   //
     //========================================================================//
+
+
+    public void test(){
+        circle.set(Gdx.graphics.getWidth() /2 - 260 , position.y + student.getHeight(), student.getWidth());
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.circle(circle.x, circle.y, circle.radius);
+        shapeRenderer.end();
+    }
+
 
     /**
      * Methode, um die Position des Studenten zurückzusetzen
@@ -87,6 +126,10 @@ public class Student {
 
     //Geschwindigkeit des Fallens anpassen an die Framerate
         velocity.scl(1/deltaTime);
+
+    //Setzt das Rechteck um den Spielecharakter zu Kollisionserkennung
+    rectangle.setPosition(position.x, position.y);
+
     }
 
     /**
@@ -112,5 +155,20 @@ public class Student {
      */
     public Texture getStudentTexture() {
         return student;
+    }
+
+    /**
+     * Löscht das Texture des Spielecharakters, um Speicher zu sparen
+     */
+    public void dispose(){
+        student.dispose();
+    }
+
+    //========================================================================//
+    //                            Getter/Setter                               //
+    //========================================================================//
+
+    public Rectangle getRectangle(){
+        return rectangle;
     }
 }

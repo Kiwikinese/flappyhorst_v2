@@ -79,7 +79,6 @@ public class InitialState extends State{
     public void handleInput() {
         if(Gdx.input.justTouched()){
             stateManager.set(new PlayState(stateManager));
-            dispose();
         }
     }
 
@@ -123,5 +122,7 @@ public class InitialState extends State{
     public void dispose() {
         backgroundImage.dispose();
         playBtn.dispose();
+
+        System.out.println("Menu State disposed");
     }
 }
