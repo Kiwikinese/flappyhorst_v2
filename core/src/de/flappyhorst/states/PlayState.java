@@ -48,6 +48,13 @@ public class PlayState extends State{
      */
     private Array<BookStack> bookStacks;
 
+    private BookStack bookStack;
+
+    /**
+     * Score
+     */
+    private int score;
+
 
     //========================================================================//
     //                            Konstruktor/en                              //
@@ -63,7 +70,10 @@ public class PlayState extends State{
 
         student = new Student(50,300);
         backgroundImage = new Texture("background_small.JPG");
-        BookStack bookStack = new BookStack(0);
+        bookStack = new BookStack(0);
+
+        //Anfangspunktzahl
+        this.score = 0;
 
         //Initialisiere die Kamera
         camera.setToOrtho(false, FlappyHorstMain.WIDTH / 2, FlappyHorstMain.HEIGHT/2);
@@ -110,13 +120,20 @@ public class PlayState extends State{
                 bookStack.reposition(
                         bookStack.getPositionTopBookStack().x + ((bookStack.getBookStackWidth() +
                                 BOOKSTACK_SPACING * BOOKSTACK_COUNT)));
+
+                score++;
+                Gdx.app.log("Score", String.valueOf(score));
             }
+
 
             //ToDo hier GameOver-Screen platzieren
             //Kollisionserkennung (sobald der Student mit einem Bücherstapel oder dem Boden in Berührung kommt, staret das Spiel neu)
             if(Intersector.overlaps(student.getRectangle(), bookStack.getRectangleTopBookStack()) || Intersector.overlaps(student.getRectangle(), bookStack.getRectangleBottomBookStack()) || student.getPosition().y < 0){
                 stateManager.set(new InitialState(stateManager));
+                Gdx.app.log("Kollision", "Kollision!");
+                score = 0;
             }
+
         }
 
         // Kamera folgt dem Spielecharakter

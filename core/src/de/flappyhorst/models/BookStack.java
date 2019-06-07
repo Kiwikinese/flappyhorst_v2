@@ -10,6 +10,7 @@ package de.flappyhorst.models;
 //                            Imports                                     //
 //========================================================================//
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -138,17 +139,6 @@ public class BookStack {
         rectangleTopBookStack.setPosition(positionTopBookStack.x, positionTopBookStack.y);
         rectangleBottomBookStack.setPosition(positionBottomBookStack.x, positionBottomBookStack.y);
     }
-
-    /**
-     * Überprüfe, ob der Spielecharakter mit einem Bücherstapel kollidiert
-     *
-     * @param student   student
-     * @return  studet.overlaps
-     *
-     */
-   /* public boolean collide(Rectangle student){
-        return student.overlaps(rectangleTopBookStack) || student.overlaps(rectangleBottomBookStack);
-    }*/
 
     /**
      * Lösche die Textures des oberen und unteren Bücherstapels, um Speicher zu sparen

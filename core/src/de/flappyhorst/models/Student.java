@@ -19,8 +19,6 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
-import de.flappyhorst.states.InitialState;
-
 //=========================================================================================//
 //                                       Student                                           //
 //=========================================================================================//
@@ -102,7 +100,6 @@ public class Student {
         shapeRenderer.circle(circle.x, circle.y, circle.radius);
         shapeRenderer.end();
     }
-
 
     /**
      * Methode, um die Position des Studenten zurückzusetzen
