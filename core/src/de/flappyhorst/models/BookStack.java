@@ -146,9 +146,9 @@ public class BookStack {
      * @return  studet.overlaps
      *
      */
-    public boolean collide(Rectangle student){
+   /* public boolean collide(Rectangle student){
         return student.overlaps(rectangleTopBookStack) || student.overlaps(rectangleBottomBookStack);
-    }
+    }*/
 
     /**
      * Lösche die Textures des oberen und unteren Bücherstapels, um Speicher zu sparen
@@ -176,6 +176,14 @@ public class BookStack {
 
     public Vector2 getPositionBottomBookStack() {
         return positionBottomBookStack;
+    }
+
+    public Rectangle getRectangleTopBookStack(){
+        return rectangleTopBookStack;
+    }
+
+    public Rectangle getRectangleBottomBookStack(){
+        return rectangleBottomBookStack;
     }
 
     public int getBookStackWidth(){

@@ -19,8 +19,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
-import de.flappyhorst.states.PlayState;
-import de.flappyhorst.states.StateManager;
+import de.flappyhorst.states.InitialState;
 
 //=========================================================================================//
 //                                       Student                                           //
@@ -65,6 +64,7 @@ public class Student {
 
     private Circle circle;
     private ShapeRenderer shapeRenderer;
+
 
 
     //========================================================================//
@@ -120,8 +120,9 @@ public class Student {
     position.add(MOVEMENT * deltaTime, velocity.y, 0);
 
     //Fallen ins "Unendliche" verhindern
-    if(position.y < 0 || position.y > 400){
+    if(position.y < 0 || position.y > 380){
         position.y = 0;
+        position.x = position.x + 100;
     }
 
     //Geschwindigkeit des Fallens anpassen an die Framerate
@@ -138,6 +139,17 @@ public class Student {
     public void jump(){
         velocity.y = 250; //Positive velocity
     }
+
+    /**
+     * Löscht das Texture des Spielecharakters, um Speicher zu sparen
+     */
+    public void dispose(){
+        student.dispose();
+    }
+
+    //========================================================================//
+    //                            Getter/Setter                               //
+    //========================================================================//
 
     /**
      * gib die Position des Studenten
@@ -158,16 +170,10 @@ public class Student {
     }
 
     /**
-     * Löscht das Texture des Spielecharakters, um Speicher zu sparen
+     * Gibt das Rechteck, dass um den Studenten herum gebaut wurde zurück
+     *
+     * @return rectangle
      */
-    public void dispose(){
-        student.dispose();
-    }
-
-    //========================================================================//
-    //                            Getter/Setter                               //
-    //========================================================================//
-
     public Rectangle getRectangle(){
         return rectangle;
     }

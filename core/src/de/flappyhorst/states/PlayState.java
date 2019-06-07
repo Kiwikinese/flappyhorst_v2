@@ -7,6 +7,7 @@ package de.flappyhorst.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.Array;
 import de.flappyhorst.models.BookStack;
 import de.flappyhorst.FlappyHorstMain;
@@ -63,6 +64,8 @@ public class PlayState extends State{
         student = new Student(50,300);
         backgroundImage = new Texture("background_small.JPG");
         BookStack bookStack = new BookStack(0);
+
+        //Initialisiere die Kamera
         camera.setToOrtho(false, FlappyHorstMain.WIDTH / 2, FlappyHorstMain.HEIGHT/2);
 
         //Initialisiere das Array von Bücherstapeln und füge die Bücherstapel dem Array hinzu
@@ -71,6 +74,8 @@ public class PlayState extends State{
         for (int i = 1; i <= BOOKSTACK_COUNT; i++){
             bookStacks.add(new BookStack(i * (BOOKSTACK_SPACING + bookStack.getBookStackWidth())));
         }
+
+
     }
 
     //========================================================================//
@@ -107,11 +112,11 @@ public class PlayState extends State{
                                 BOOKSTACK_SPACING * BOOKSTACK_COUNT)));
             }
 
-            if(bookStack.collide(student.getRectangle())){
-                //Setze Spiel bei Kollision zurück
-                stateManager.set(new PlayState(stateManager));
+            //ToDo hier GameOver-Screen platzieren
+            //Kollisionserkennung (sobald der Student mit einem Bücherstapel oder dem Boden in Berührung kommt, staret das Spiel neu)
+            if(Intersector.overlaps(student.getRectangle(), bookStack.getRectangleTopBookStack()) || Intersector.overlaps(student.getRectangle(), bookStack.getRectangleBottomBookStack()) || student.getPosition().y < 0){
+                stateManager.set(new InitialState(stateManager));
             }
-
         }
 
         // Kamera folgt dem Spielecharakter
@@ -145,7 +150,6 @@ public class PlayState extends State{
         }
 
         student.test();
-
 
         //Beende den Batch
         batch.end();

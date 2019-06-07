@@ -64,8 +64,6 @@ public class InitialState extends State{
         highschoreBtn = new Texture("initial_screen_highscorebtn.png");
         settingsBtn = new Texture("settings_btn.png");
         image = new Texture("logo.png");
-
-
     }
 
     //========================================================================//
