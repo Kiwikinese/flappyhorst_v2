@@ -79,7 +79,7 @@ public class Student {
     public Student(int x, int y){
         position = new Vector3(x, y,0);
         velocity = new Vector3(0,0,0);
-        student = new Texture("bird.png");
+        student = new Texture("flappy_horst_bird.png");
         rectangle = new Rectangle(x, y, student.getWidth(), student.getHeight());
 
         circle = new Circle();
