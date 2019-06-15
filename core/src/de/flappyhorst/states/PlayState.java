@@ -5,7 +5,9 @@ package de.flappyhorst.states;
 //========================================================================//
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.Array;
@@ -55,6 +57,11 @@ public class PlayState extends State{
      */
     private int score;
 
+    /**
+     * Schriftart für die Ausgabe des Scores
+     */
+    private BitmapFont font;
+
 
     //========================================================================//
     //                            Konstruktor/en                              //
@@ -71,6 +78,11 @@ public class PlayState extends State{
         student = new Student(50,300);
         backgroundImage = new Texture("background_small.JPG");
         bookStack = new BookStack(0);
+
+        //Anzeigen des Scores auf dem Bildschirm
+        font = new BitmapFont(Gdx.files.internal("FlappyBirdy.ttf"), false);
+        font.setColor(Color.RED);
+        font.getData().setScale(10);
 
         //Anfangspunktzahl
         this.score = 0;
@@ -111,7 +123,6 @@ public class PlayState extends State{
     public void update(float deltaTime) {
         handleInput();
         student.update(deltaTime);
-
         camera.position.x = student.getPosition().x + 80;
 
         // Wenn ein Bücherstapel auserhalb des linken Bildschirmrandes ist, positioniere ihn neu an das Ende
@@ -130,7 +141,9 @@ public class PlayState extends State{
             //Kollisionserkennung (sobald der Student mit einem Bücherstapel oder dem Boden in Berührung kommt, staret das Spiel neu)
             if(Intersector.overlaps(student.getRectangle(), bookStack.getRectangleTopBookStack()) || Intersector.overlaps(student.getRectangle(), bookStack.getRectangleBottomBookStack()) || student.getPosition().y < 0){
                 stateManager.set(new InitialState(stateManager));
+
                 Gdx.app.log("Kollision", "Kollision!");
+
                 score = 0;
             }
 
@@ -165,6 +178,9 @@ public class PlayState extends State{
             batch.draw(bookStack.getTopBookStack(), bookStack.getPositionTopBookStack().x, bookStack.getPositionTopBookStack().y);
             batch.draw(bookStack.getBottomBookStack(), bookStack.getPositionBottomBookStack().x, bookStack.getPositionBottomBookStack().y);
         }
+
+        //Zeichne den Score auf den Screen
+        font.draw(batch, "TEST", 0, 0);
 
         student.test();
 
