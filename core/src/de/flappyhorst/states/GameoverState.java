@@ -15,19 +15,21 @@ public class GameoverState extends State {
      *
      */
     private Texture backgroundImage;
+    private Texture endImage;
     private BitmapFont font;
     Preferences prefs = Gdx.app.getPreferences("My Preferences");
-    private String punktzahl;
+    private Integer punktzahl;
 
 
     public GameoverState(StateManager stateManager){
         super(stateManager);
         backgroundImage = new Texture("background_small.JPG");
+        endImage = new Texture("gameoverFont.png");
         font = new BitmapFont();
         font.setColor(Color.WHITE);
-        font.getData().setScale(10);
-        punktzahl = prefs.getString("score");
-        Gdx.app.log("Test", punktzahl);
+        font.getData().setScale(5);
+        punktzahl = prefs.getInteger("score");
+        Gdx.app.log("Test", String.valueOf(punktzahl));
     }
     @Override
     public void handleInput() {
@@ -39,6 +41,7 @@ public class GameoverState extends State {
     @Override
     public void update(float deltaTime) {
         handleInput(); //Checkt den Input des Users
+        punktzahl = prefs.getInteger("score");
     }
     @Override
     public void render(SpriteBatch batch) {
@@ -46,7 +49,8 @@ public class GameoverState extends State {
         batch.getProjectionMatrix().setToOrtho2D(0, 0, Gdx.graphics.getWidth(),  Gdx.graphics.getHeight());
         batch.begin();
         batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        font.draw(batch, punktzahl, 10, Gdx.graphics.getHeight()-100);
+        batch.draw(endImage,  50 , Gdx.graphics.getHeight()-750,Gdx.graphics.getWidth()-100, 300 );
+        font.draw(batch, "SCORE:" + punktzahl, 10, Gdx.graphics.getHeight()-1000);
         //Beende den Batch
         batch.end();
     }

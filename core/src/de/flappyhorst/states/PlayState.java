@@ -108,7 +108,7 @@ public class PlayState extends State{
         for (int i = 1; i <= BOOKSTACK_COUNT; i++){
             bookStacks.add(new BookStack(i * (BOOKSTACK_SPACING + bookStack.getBookStackWidth())));
         }
-        Preferences prefs = Gdx.app.getPreferences("My Preferences");
+
     }
 
     //========================================================================//
@@ -132,6 +132,7 @@ public class PlayState extends State{
      */
     @Override
     public void update(float deltaTime) {
+        Preferences prefs = Gdx.app.getPreferences("My Preferences");
         handleInput();
         student.update(deltaTime);
         camera.position.x = student.getPosition().x + 80;
@@ -154,7 +155,9 @@ public class PlayState extends State{
             if(Intersector.overlaps(student.getRectangle(), bookStack.getRectangleTopBookStack()) || Intersector.overlaps(student.getRectangle(), bookStack.getRectangleBottomBookStack()) || student.getPosition().y < 0){
                 stateManager.set(new GameoverState(stateManager));
                 Gdx.app.log("Kollision", "Kollision!");
-
+                //Speichern des Scores bevor er zurückgesetzt wird
+                prefs.putInteger("score", score);
+                prefs.flush();
                 score = 0;
             }
 
