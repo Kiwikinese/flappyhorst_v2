@@ -34,7 +34,7 @@ public class GameoverState extends State {
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
-            stateManager.set(new PlayState(stateManager));
+            stateManager.set(new InitialState(stateManager));
         }
     }
 

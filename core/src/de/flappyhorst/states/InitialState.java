@@ -5,11 +5,9 @@ package de.flappyhorst.states;
 //========================================================================//
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import de.flappyhorst.FlappyHorstMain;
-
 
 /**
  * Anfänglicher Status mit dem Play-Button
@@ -50,6 +48,13 @@ public class InitialState extends State{
      */
     private Texture  image;
 
+    private Texture volumeOn, volumeOff;
+
+    /**
+     * Musik des Spiels
+     */
+    private Music song;
+
     //========================================================================//
     //                            Konstruktor/en                              //
     //========================================================================//
@@ -66,6 +71,14 @@ public class InitialState extends State{
         highschoreBtn = new Texture("initial_screen_highscorebtn.png");
         settingsBtn = new Texture("settings_btn.png");
         image = new Texture("logo.png");
+        volumeOn = new Texture("volume_on.png");
+        volumeOff = new Texture("volume_off.png");
+
+        //Initialisiere die Musik des Spiels
+        song = Gdx.audio.newMusic(Gdx.files.internal("_pokemon_theme.mp3"));
+        song.setLooping(true);
+        song.setVolume(0.1f);	//10% von max. 100% Lautstärke
+        song.stop();
     }
 
     //========================================================================//
@@ -77,7 +90,7 @@ public class InitialState extends State{
      */
     @Override
     public void handleInput() {
-        if(Gdx.input.justTouched()){
+       if(Gdx.input.getX() < 490 && Gdx.input.getY() > 1450){
             stateManager.set(new PlayState(stateManager));
         }
     }
@@ -110,6 +123,13 @@ public class InitialState extends State{
         batch.draw(highschoreBtn, Gdx.graphics.getWidth() / 2 +60, Gdx.graphics.getHeight() / 2 - 800, 400, 250);
         batch.draw(settingsBtn, Gdx.graphics.getWidth() - 210, 10, 200, 200);
         batch.draw(image, 50, Gdx.graphics.getHeight()-750,  Gdx.graphics.getWidth()-50, 300);
+
+        if(Gdx.input.getX() > 800 && Gdx.input.getY() < 200){
+            batch.draw(volumeOn, 900, 1600, 100,100);
+            song.play();
+        }else{
+            batch.draw(volumeOn, 900, 1600, 100,100);
+        }
 
         //Beende den Batch
         batch.end();
