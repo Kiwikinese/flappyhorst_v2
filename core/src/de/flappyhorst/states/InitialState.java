@@ -8,6 +8,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import de.flappyhorst.FlappyHorstMain;
+
+
 /**
  * Anfänglicher Status mit dem Play-Button
  */
@@ -46,7 +49,6 @@ public class InitialState extends State{
      * Logo des Spiels
      */
     private Texture  image;
-
 
     //========================================================================//
     //                            Konstruktor/en                              //

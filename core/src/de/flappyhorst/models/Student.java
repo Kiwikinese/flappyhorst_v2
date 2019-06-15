@@ -93,13 +93,13 @@ public class Student {
     //========================================================================//
 
 
-    public void test(){
+/*    public void test(){
         circle.set(Gdx.graphics.getWidth() /2 - 260 , position.y + student.getHeight(), student.getWidth());
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.circle(circle.x, circle.y, circle.radius);
         shapeRenderer.end();
-    }
+    }*/
 
     /**
      * Methode, um die Position des Studenten zurückzusetzen

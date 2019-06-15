@@ -50,6 +50,9 @@ public class PlayState extends State{
      */
     private Array<BookStack> bookStacks;
 
+    /**
+     * Bücherstapel-Objekt
+     */
     private BookStack bookStack;
 
     /**
@@ -79,16 +82,17 @@ public class PlayState extends State{
         backgroundImage = new Texture("background_small.JPG");
         bookStack = new BookStack(0);
 
+
         //Anzeigen des Scores auf dem Bildschirm
-        font = new BitmapFont(Gdx.files.internal("FlappyBirdy.ttf"), false);
+        font = new BitmapFont();
         font.setColor(Color.RED);
-        font.getData().setScale(10);
+        font.getData().setScale(1);
 
         //Anfangspunktzahl
         this.score = 0;
 
         //Initialisiere die Kamera
-        camera.setToOrtho(false, FlappyHorstMain.WIDTH / 2, FlappyHorstMain.HEIGHT/2);
+        camera.setToOrtho(false, FlappyHorstMain.WIDTH/2, FlappyHorstMain.HEIGHT/2);
 
         //Initialisiere das Array von Bücherstapeln und füge die Bücherstapel dem Array hinzu
         bookStacks = new Array<BookStack>();
@@ -96,8 +100,6 @@ public class PlayState extends State{
         for (int i = 1; i <= BOOKSTACK_COUNT; i++){
             bookStacks.add(new BookStack(i * (BOOKSTACK_SPACING + bookStack.getBookStackWidth())));
         }
-
-
     }
 
     //========================================================================//
@@ -129,8 +131,9 @@ public class PlayState extends State{
         for(BookStack bookStack : bookStacks){
             if(camera.position.x - (camera.viewportWidth / 2) > bookStack.getPositionTopBookStack().x + bookStack.getTopBookStack().getWidth()){
                 bookStack.reposition(
-                        bookStack.getPositionTopBookStack().x + ((bookStack.getBookStackWidth() +
-                                BOOKSTACK_SPACING * BOOKSTACK_COUNT)));
+                        bookStack.getPositionTopBookStack().x
+                                + ((bookStack.getBookStackWidth()
+                                + BOOKSTACK_SPACING * BOOKSTACK_COUNT)));
 
                 score++;
                 Gdx.app.log("Score", String.valueOf(score));
@@ -138,7 +141,7 @@ public class PlayState extends State{
 
 
             //ToDo hier GameOver-Screen platzieren
-            //Kollisionserkennung (sobald der Student mit einem Bücherstapel oder dem Boden in Berührung kommt, staret das Spiel neu)
+            //Kollisionserkennung (sobald der Student mit einem Bücherstapel, der oberen Grenze des Bildschirms oder dem Boden in Berührung kommt, staret das Spiel neu)
             if(Intersector.overlaps(student.getRectangle(), bookStack.getRectangleTopBookStack()) || Intersector.overlaps(student.getRectangle(), bookStack.getRectangleBottomBookStack()) || student.getPosition().y < 0){
                 stateManager.set(new InitialState(stateManager));
 
@@ -149,7 +152,7 @@ public class PlayState extends State{
 
         }
 
-        // Kamera folgt dem Spielecharakter
+        //Kamera folgt dem Spielecharakter
        camera.update();
     }
 
@@ -180,9 +183,9 @@ public class PlayState extends State{
         }
 
         //Zeichne den Score auf den Screen
-        font.draw(batch, "TEST", 0, 0);
+        font.draw(batch, String.valueOf(score), camera.position.x - 100, camera.position.y - 150);
 
-        student.test();
+        //student.test();
 
         //Beende den Batch
         batch.end();
@@ -201,4 +204,5 @@ public class PlayState extends State{
             System.out.println("PlaySate disposed");
         }
     }
+
 }
