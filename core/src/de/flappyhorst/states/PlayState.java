@@ -5,6 +5,8 @@ package de.flappyhorst.states;
 //========================================================================//
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,6 +16,9 @@ import com.badlogic.gdx.utils.Array;
 import de.flappyhorst.models.BookStack;
 import de.flappyhorst.FlappyHorstMain;
 import de.flappyhorst.models.Student;
+
+import static java.lang.Integer.valueOf;
+
 
 //=========================================================================================//
 //                                       PlayState                                         //
@@ -65,6 +70,8 @@ public class PlayState extends State{
      */
     private BitmapFont font;
 
+    public Preferences prefs;
+
 
     //========================================================================//
     //                            Konstruktor/en                              //
@@ -77,6 +84,7 @@ public class PlayState extends State{
      */
     public PlayState(StateManager stateManager) {
         super(stateManager);
+
 
         student = new Student(50,300);
         backgroundImage = new Texture("background_small.JPG");
@@ -100,6 +108,7 @@ public class PlayState extends State{
         for (int i = 1; i <= BOOKSTACK_COUNT; i++){
             bookStacks.add(new BookStack(i * (BOOKSTACK_SPACING + bookStack.getBookStackWidth())));
         }
+        Preferences prefs = Gdx.app.getPreferences("My Preferences");
     }
 
     //========================================================================//
@@ -137,14 +146,13 @@ public class PlayState extends State{
 
                 score++;
                 Gdx.app.log("Score", String.valueOf(score));
+
             }
-
-
+            
             //ToDo hier GameOver-Screen platzieren
             //Kollisionserkennung (sobald der Student mit einem Bücherstapel, der oberen Grenze des Bildschirms oder dem Boden in Berührung kommt, staret das Spiel neu)
             if(Intersector.overlaps(student.getRectangle(), bookStack.getRectangleTopBookStack()) || Intersector.overlaps(student.getRectangle(), bookStack.getRectangleBottomBookStack()) || student.getPosition().y < 0){
-                stateManager.set(new InitialState(stateManager));
-
+                stateManager.set(new GameoverState(stateManager));
                 Gdx.app.log("Kollision", "Kollision!");
 
                 score = 0;
