@@ -93,8 +93,8 @@ public class BookStack {
      * @param x x-Achse
      */
     public BookStack(float x){
-        topBookStack = new Texture("toptube.png");
-        bottomBookStack = new Texture("bottomtube.png");
+        topBookStack = new Texture("Bücherstapel.png");
+        bottomBookStack = new Texture("Bücherstapel.png");
         random = new Random();
 
         // Initialisiere die Positionen des Bottom- und des Top-BookStacks
