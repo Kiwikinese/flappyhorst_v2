@@ -8,17 +8,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameoverState extends State {
-    /**
-     * Konstruktor
-     *
-     * @param stateManager  stateManager
-     *
-     */
+
     private Texture backgroundImage;
     private Texture endImage;
     private BitmapFont font;
     Preferences prefs = Gdx.app.getPreferences("My Preferences");
-    private Integer punktzahl;
+    private int highscore;
+    private int currentScore;
 
 
     public GameoverState(StateManager stateManager){
@@ -28,9 +24,10 @@ public class GameoverState extends State {
         font = new BitmapFont();
         font.setColor(Color.WHITE);
         font.getData().setScale(5);
-        punktzahl = prefs.getInteger("score");
-        Gdx.app.log("Test", String.valueOf(punktzahl));
+
+        Gdx.app.log("Highscore", String.valueOf(highscore));
     }
+
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
@@ -41,8 +38,9 @@ public class GameoverState extends State {
     @Override
     public void update(float deltaTime) {
         handleInput(); //Checkt den Input des Users
-        punktzahl = prefs.getInteger("score");
+
     }
+
     @Override
     public void render(SpriteBatch batch) {
         //Repositioniert die Kamera
@@ -50,7 +48,12 @@ public class GameoverState extends State {
         batch.begin();
         batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.draw(endImage,  50 , Gdx.graphics.getHeight()-750,Gdx.graphics.getWidth()-100, 300 );
-        font.draw(batch, "SCORE:" + punktzahl, 10, Gdx.graphics.getHeight()-1000);
+        highscore = prefs.getInteger("highscore");
+        currentScore = prefs.getInteger("currentscore");
+        prefs.flush();
+        font.draw(batch, "Du hast folgende Punktzahl\nerreicht: " + currentScore, 50, Gdx.graphics.getHeight()-1000);
+        font.draw(batch, "Dein aktueller Highscore\nliegt bei: " + highscore, 50, Gdx.graphics.getHeight()-1300);
+
         //Beende den Batch
         batch.end();
     }
@@ -60,6 +63,6 @@ public class GameoverState extends State {
      */
     @Override
     public void dispose() {
-        System.out.println("Gameover State disposed");
+        Gdx.app.log("GameOverState","GameOverState disposed");
     }
 }

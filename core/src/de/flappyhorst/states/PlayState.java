@@ -6,7 +6,6 @@ package de.flappyhorst.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -16,9 +15,6 @@ import com.badlogic.gdx.utils.Array;
 import de.flappyhorst.models.BookStack;
 import de.flappyhorst.FlappyHorstMain;
 import de.flappyhorst.models.Student;
-
-import static java.lang.Integer.valueOf;
-
 
 //=========================================================================================//
 //                                       PlayState                                         //
@@ -66,10 +62,18 @@ public class PlayState extends State{
     private int score;
 
     /**
+     * Highscore
+     */
+    private int highscore, newhighscore;
+
+    /**
      * Schriftart für die Ausgabe des Scores
      */
     private BitmapFont font;
 
+    /**
+     * Preferences für den Score und den Highscore
+     */
     public Preferences prefs;
 
 
@@ -85,19 +89,17 @@ public class PlayState extends State{
     public PlayState(StateManager stateManager) {
         super(stateManager);
 
-
         student = new Student(50,300);
         backgroundImage = new Texture("background_small.JPG");
         bookStack = new BookStack(0);
-
 
         //Anzeigen des Scores auf dem Bildschirm
         font = new BitmapFont();
         font.setColor(Color.RED);
         font.getData().setScale(1);
 
-        //Anfangspunktzahl
-        this.score = 0;
+        score = 0;
+        highscore = 0;
 
         //Initialisiere die Kamera
         camera.setToOrtho(false, FlappyHorstMain.WIDTH/2, FlappyHorstMain.HEIGHT/2);
@@ -137,7 +139,7 @@ public class PlayState extends State{
         student.update(deltaTime);
         camera.position.x = student.getPosition().x + 80;
 
-        // Wenn ein Bücherstapel auserhalb des linken Bildschirmrandes ist, positioniere ihn neu an das Ende
+        // Wenn ein Bücherstapel auserhalb des linken Bildschirmrandes ist, positioniere ihn neu an das Ende und zähle den Score um eins nach oben
         for(BookStack bookStack : bookStacks){
             if(camera.position.x - (camera.viewportWidth / 2) > bookStack.getPositionTopBookStack().x + bookStack.getTopBookStack().getWidth()){
                 bookStack.reposition(
@@ -147,22 +149,33 @@ public class PlayState extends State{
 
                 score++;
                 Gdx.app.log("Score", String.valueOf(score));
-
             }
-            
-            //ToDo hier GameOver-Screen platzieren
+
             //Kollisionserkennung (sobald der Student mit einem Bücherstapel, der oberen Grenze des Bildschirms oder dem Boden in Berührung kommt, staret das Spiel neu)
-            if(Intersector.overlaps(student.getRectangle(), bookStack.getRectangleTopBookStack()) || Intersector.overlaps(student.getRectangle(), bookStack.getRectangleBottomBookStack()) || student.getPosition().y < 0){
+            if(Intersector.overlaps(
+                    student.getRectangle(), bookStack.getRectangleTopBookStack())
+                    || Intersector.overlaps(student.getRectangle(), bookStack.getRectangleBottomBookStack())
+                    || student.getPosition().y < 0){
+
                 stateManager.set(new GameoverState(stateManager));
                 Gdx.app.log("Kollision", "Kollision!");
 
                 //Speichern des Scores bevor er zurückgesetzt wird
-                prefs.putInteger("score", score);
+                prefs.putInteger("currentscore", score);
                 prefs.flush();
+
+                if(score > highscore){
+                    highscore = score;
+                    prefs.putInteger("highscore", highscore);
+                    prefs.flush();
+                }else{
+                    newhighscore = highscore;
+                    prefs.putInteger("highscore", newhighscore);
+                    prefs.flush();
+                }
 
                 score = 0;
             }
-
         }
 
         //Kamera folgt dem Spielecharakter
@@ -214,7 +227,8 @@ public class PlayState extends State{
 
         for(BookStack bookStack : bookStacks){
             bookStack.dispose();
-            System.out.println("PlaySate disposed");
+
+            Gdx.app.log("PlayState","PlayState disposed");
         }
     }
 

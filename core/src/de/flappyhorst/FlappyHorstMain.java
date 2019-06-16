@@ -7,7 +7,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.flappyhorst.states.InitialState;
@@ -43,12 +42,6 @@ public class FlappyHorstMain extends ApplicationAdapter {
 	 */
 	private StateManager stateManager;
 
-	/**
-	 * Musik des Spiels
-	 */
-	/*private Music song;*/
-
-
 	//========================================================================//
 	//                             Methoden                                   //
 	//========================================================================//
@@ -61,12 +54,6 @@ public class FlappyHorstMain extends ApplicationAdapter {
 		//Initialisiere den StateManager und pushe auf den InitialState
 		stateManager = new StateManager();
 		stateManager.push(new InitialState(stateManager));
-
-		//Initialisiere die Musik des Spiels
-	/*	song = Gdx.audio.newMusic(Gdx.files.internal("_pokemon_theme.mp3"));
-		song.setLooping(true);
-		song.setVolume(0.1f);	//10% von max. 100% Lautstärke
-		song.play();*/
 	}
 
 	@Override
@@ -88,5 +75,4 @@ public class FlappyHorstMain extends ApplicationAdapter {
 	public void dispose () {
 
 	}
-
 }
