@@ -39,12 +39,12 @@ public class InitialState extends State{
     /**
      * Button, um auf dem Highscore-Screen zu landen
      */
-    private Texture highschoreBtn;
+    private Texture highscoreBtn;
 
     /**
      * Logo des Spiels
      */
-    private Texture  image;
+    private Texture logo;
 
     /**
      * Texture für den On- und Off Button zum Abspielen/Stoppen der Musik
@@ -71,8 +71,8 @@ public class InitialState extends State{
         //Textures initialisieren
         backgroundImage = new Texture("flappy_horst_background.png");
         playBtn = new Texture("initial_screen_playbtn.png");
-        highschoreBtn = new Texture("initial_screen_highscorebtn.png");
-        image = new Texture("logo.png");
+        highscoreBtn = new Texture("initial_screen_highscorebtn.png");
+        logo = new Texture("logo.png");
         volumeOn = new Texture("volume_on.png");
         volumeOff = new Texture("volume_off.png");
 
@@ -120,8 +120,8 @@ public class InitialState extends State{
 
         //Zeichne sämtliche Buttons
         batch.draw(playBtn, Gdx.graphics.getWidth() / 2 -460, Gdx.graphics.getHeight() / 2 - 800, 400, 250);
-        batch.draw(highschoreBtn, Gdx.graphics.getWidth() / 2 + 60 , Gdx.graphics.getHeight() / 20, 400, 250);
-        batch.draw(image, 50, Gdx.graphics.getHeight() - 700,  Gdx.graphics.getWidth()-50, 300);
+        batch.draw(highscoreBtn, Gdx.graphics.getWidth() / 2 + 60 , Gdx.graphics.getHeight() / 20, 400, 250);
+        batch.draw(logo, 50, Gdx.graphics.getHeight() - 700,  Gdx.graphics.getWidth()-50, 300);
         batch.draw(volumeOn, 900, 1600, 100,100);
         batch.draw(volumeOff, 100, 1600, 100,100);
 
@@ -145,7 +145,7 @@ public class InitialState extends State{
     }
 
     /**
-     * Methode, um die Musik bei Touch auf die entsrpechenden Buttons ein- oder auszuschalten
+     * Methode, um die Musik bei Touch auf die entsprechenden Textures ein- oder auszuschalten
      */
     public void onClickVolumeButtons(){
         if(Gdx.input.getX() > Gdx.graphics.getWidth() / 2 && Gdx.input.getY() < 400){
