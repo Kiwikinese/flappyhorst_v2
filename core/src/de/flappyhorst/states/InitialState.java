@@ -115,7 +115,7 @@ public class InitialState extends State{
         this.volumeOffBtnRegion = new TextureRegion(volumeOffTexture);
         this.volumeOffBtnRegionDrawable = new TextureRegionDrawable(volumeOffBtnRegion);
         this.volumeOffBtn = new ImageButton(volumeOffBtnRegionDrawable);
-        this.volumeOffBtn.setPosition(100, 1600);
+        this.volumeOffBtn.setPosition(900, 1500);
         this.volumeOffBtn.setTransform(true);
         this.volumeOffBtn.setScale(0.2f);
 

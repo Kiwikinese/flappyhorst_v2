@@ -107,7 +107,7 @@ public class GameoverState extends State {
         this.closeBtnRegion = new TextureRegion(closeBtnTexture);
         this.closeBtnRegionDrawable = new TextureRegionDrawable(closeBtnRegion);
         this.closeBtn = new ImageButton(closeBtnRegionDrawable);
-        this.closeBtn.setPosition(900 , Gdx.graphics.getHeight()-500);
+        this.closeBtn.setPosition(900 , Gdx.graphics.getHeight()-200);
         this.closeBtn.setTransform(true);
         this.closeBtn.setScale(3f);
 
@@ -115,7 +115,7 @@ public class GameoverState extends State {
         this.logoRegion = new TextureRegion(endImageTexture);
         this.logoRegionDrawable = new TextureRegionDrawable(logoRegion);
         this.logo = new ImageButton(logoRegionDrawable);
-        this.logo.setPosition( 50 , Gdx.graphics.getHeight()-750);
+        this.logo.setPosition( 50 , Gdx.graphics.getHeight()-500);
         this.logo.setTransform(true);
         this.logo.setScale(3.5f);
 
@@ -172,8 +172,8 @@ public class GameoverState extends State {
         this.currentScore = prefs.getInteger("currentscore");
         this.prefs.flush();
 
-        this.font.draw(batch, "Du hast folgende Punktzahl\nerreicht: " + currentScore, 50, Gdx.graphics.getHeight()-1000);
-        this.font.draw(batch, "Dein aktueller Highscore\nliegt bei: " + highscore, 50, Gdx.graphics.getHeight()-1300);
+        this.font.draw(batch, "Du hast folgende Punktzahl\nerreicht: " + currentScore, 50, Gdx.graphics.getHeight()-600);
+        this.font.draw(batch, "Dein aktueller Highscore\nliegt bei: " + highscore, 50, Gdx.graphics.getHeight()-900);
 
         //Beende den Batch
         batch.end();

@@ -10,7 +10,6 @@ package de.flappyhorst.models;
 //                            Imports                                     //
 //========================================================================//
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -93,31 +92,31 @@ public class BookStack {
      * @param x x-Achse
      */
     public BookStack(float x){
-        topBookStack = new Texture("Bücherstapel.png");
-        bottomBookStack = new Texture("Bücherstapel.png");
-        random = new Random();
+        this.topBookStack = new Texture("Bücherstapel.png");
+        this.bottomBookStack = new Texture("Bücherstapel.png");
+        this.random = new Random();
 
         // Initialisiere die Positionen des Bottom- und des Top-BookStacks
         // Top
-        positionTopBookStack = new Vector2(x, random.nextInt(FLUCTUATION) + GAP_BETWEEN_STACKS + LOWEST_OPENING);
+        this.positionTopBookStack = new Vector2(x, random.nextInt(FLUCTUATION) + GAP_BETWEEN_STACKS + LOWEST_OPENING);
 
         // Bottom
-        positionBottomBookStack = new Vector2(x, positionTopBookStack.y - GAP_BETWEEN_STACKS - bottomBookStack.getHeight());
+        this.positionBottomBookStack = new Vector2(x, positionTopBookStack.y - GAP_BETWEEN_STACKS - bottomBookStack.getHeight());
 
         // Initialisiere die Rechtecke, die um die Bücherstapel liegen, damit eine Kollision mit dem Spielecharakter erkannt werden kann
         // Top
-        rectangleTopBookStack = new Rectangle(
-                positionTopBookStack.x,
-                positionTopBookStack.y,
-                topBookStack.getWidth(),
-                topBookStack.getHeight());
+        this.rectangleTopBookStack = new Rectangle(
+                this.positionTopBookStack.x,
+                this.positionTopBookStack.y,
+                this.topBookStack.getWidth(),
+                this.topBookStack.getHeight());
 
         // Bottom
-        rectangleBottomBookStack = new Rectangle(
-                positionBottomBookStack.x,
-                positionBottomBookStack.y,
-                bottomBookStack.getWidth(),
-                bottomBookStack.getHeight());
+        this.rectangleBottomBookStack = new Rectangle(
+                this.positionBottomBookStack.x,
+                this.positionBottomBookStack.y,
+                this.bottomBookStack.getWidth(),
+                this.bottomBookStack.getHeight());
     }
 
 
@@ -132,20 +131,20 @@ public class BookStack {
      */
     public void reposition(float x){
         // Setze die Bücherstapel an die entsprechende Position
-        positionTopBookStack.set(x, random.nextInt(FLUCTUATION) + GAP_BETWEEN_STACKS + LOWEST_OPENING);
-        positionBottomBookStack.set(x, positionTopBookStack.y - GAP_BETWEEN_STACKS - bottomBookStack.getHeight());
+        this.positionTopBookStack.set(x,  this.random.nextInt(FLUCTUATION) +  GAP_BETWEEN_STACKS + LOWEST_OPENING);
+        this.positionBottomBookStack.set(x, positionTopBookStack.y - GAP_BETWEEN_STACKS - bottomBookStack.getHeight());
 
         // Setze die Rechtecke über die Bücherstapel für die Kollisionserkennung
-        rectangleTopBookStack.setPosition(positionTopBookStack.x, positionTopBookStack.y);
-        rectangleBottomBookStack.setPosition(positionBottomBookStack.x, positionBottomBookStack.y);
+        this.rectangleTopBookStack.setPosition( this.positionTopBookStack.x,  this.positionTopBookStack.y);
+        this.rectangleBottomBookStack.setPosition( this.positionBottomBookStack.x,  this.positionBottomBookStack.y);
     }
 
     /**
      * Lösche die Textures des oberen und unteren Bücherstapels, um Speicher zu sparen
      */
     public void dispose(){
-        bottomBookStack.dispose();
-        topBookStack.dispose();
+        this.bottomBookStack.dispose();
+        this.topBookStack.dispose();
     }
 
     //========================================================================//
@@ -153,30 +152,30 @@ public class BookStack {
     //========================================================================//
 
     public Texture getTopBookStack() {
-        return topBookStack;
+        return  this.topBookStack;
     }
 
     public Texture getBottomBookStack() {
-        return bottomBookStack;
+        return  this.bottomBookStack;
     }
 
     public Vector2 getPositionTopBookStack() {
-        return positionTopBookStack;
+        return  this.positionTopBookStack;
     }
 
     public Vector2 getPositionBottomBookStack() {
-        return positionBottomBookStack;
+        return  this.positionBottomBookStack;
     }
 
     public Rectangle getRectangleTopBookStack(){
-        return rectangleTopBookStack;
+        return  this.rectangleTopBookStack;
     }
 
     public Rectangle getRectangleBottomBookStack(){
-        return rectangleBottomBookStack;
+        return  this.rectangleBottomBookStack;
     }
 
     public int getBookStackWidth(){
-        return BOOKSTACK_WIDTH;
+        return  BOOKSTACK_WIDTH;
     }
 }
