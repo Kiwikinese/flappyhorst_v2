@@ -8,18 +8,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-/**
- * Hauptmenü des Spiels. Von hier aus kann über die Play-Texture das Spiel gestartet werden oder
- * über die Highscore-Texture sich der aktuelle Highscore angeschaut werden.
- * Auch die Musik kann über Textures eingeschaltet oder ausgeschaltet werden.
- *
- */
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 //=========================================================================================//
 //                                     InitialState                                        //
 //=========================================================================================//
 
+/**
+ * Hauptmenü des Spiels. Von hier aus kann über den Play-Button das Spiel gestartet werden. Über den
+ * Score-Button können sich die aktuellen Scores angezeigt werden lassen.
+ * Auch die Musik kann über die Sound-Buttons eingeschaltet oder ausgeschaltet werden.
+ *
+ */
 public class InitialState extends State{
 
     //========================================================================//
@@ -34,7 +40,7 @@ public class InitialState extends State{
     /**
      * Play-Button, um das Spiel zu starten
      */
-    private Texture playBtn;
+    private Texture playBtnTexture;
 
     /**
      * Button, um auf dem Highscore-Screen zu landen
@@ -49,19 +55,40 @@ public class InitialState extends State{
     /**
      * Texture für den On- und Off Button zum Abspielen/Stoppen der Musik
      */
-    private Texture volumeOn, volumeOff;
+    private Texture volumeOnTexture, volumeOffTexture;
 
     /**
      * Musik des Spiels
      */
     private Music song;
 
+    /**
+     * Stage
+     */
+    private Stage stage;
+
+    /**
+     * TextureRegion für die Buttons
+     */
+    private TextureRegion volumeOnBtnRegion, volumeOffBtnRegion;
+
+    /**
+     * TextureRegionDrawable für die Buttons
+     */
+    private TextureRegionDrawable volumeOnBtnRegionDrawable, volumeOffBtnRegionDrawable;
+
+    /**
+     * ImageButton für die Buttons
+     */
+    private ImageButton volumeOnBtn, volumeOffBtn;
+
     //========================================================================//
     //                            Konstruktor/en                              //
     //========================================================================//
 
     /**
-     * Konstruktor
+     * Konstruktor der Klasse InitialState. Hier werden die Textures und die Buttons initialisiert.
+     * Auch der OnClick-Listener bzw. Eventlistener für Buttons wird hier aufgerufen.
      *
      * @param stateManager  stateManager
      */
@@ -69,14 +96,41 @@ public class InitialState extends State{
         super(stateManager);
 
         //Textures initialisieren
-        backgroundImage = new Texture("flappy_horst_background.png");
-        playBtn = new Texture("initial_screen_playbtn.png");
-        highscoreBtn = new Texture("initial_screen_highscorebtn.png");
-        logo = new Texture("logo.png");
-        volumeOn = new Texture("volume_on.png");
-        volumeOff = new Texture("volume_off.png");
+        this.backgroundImage = new Texture("flappy_horst_background.png");
+        this.playBtnTexture = new Texture("initial_screen_playbtn.png");
+        this.highscoreBtn = new Texture("initial_screen_highscorebtn.png");
+        this.logo = new Texture("logo.png");
+        this.volumeOnTexture = new Texture("volume_on.png");
+        this.volumeOffTexture = new Texture("volume_off.png");
 
+        //Initialisiere den VolumeOn-Button
+        this.volumeOnBtnRegion = new TextureRegion(volumeOnTexture);
+        this.volumeOnBtnRegionDrawable = new TextureRegionDrawable(volumeOnBtnRegion);
+        this.volumeOnBtn = new ImageButton(volumeOnBtnRegionDrawable);
+        this.volumeOnBtn.setPosition(900, 1600);
+        this.volumeOnBtn.setTransform(true);
+        this.volumeOnBtn.setScale(0.2f);
+
+        //Initialisiere den VolumeOff-Button
+        this.volumeOffBtnRegion = new TextureRegion(volumeOffTexture);
+        this.volumeOffBtnRegionDrawable = new TextureRegionDrawable(volumeOffBtnRegion);
+        this.volumeOffBtn = new ImageButton(volumeOffBtnRegionDrawable);
+        this.volumeOffBtn.setPosition(100, 1600);
+        this.volumeOffBtn.setTransform(true);
+        this.volumeOffBtn.setScale(0.2f);
+
+        //Initialisiere die Stage und füge sämtliche Buttons der Klasse InitialState hinzu
+        this.stage = new Stage(new ScreenViewport());
+        this.stage.addActor(volumeOnBtn);
+        this.stage.addActor(volumeOffBtn);
+        Gdx.input.setInputProcessor(stage);
+
+        //Song initialisieren
         initializeSong();
+
+        //EventListener für die verschiedenen Buttons
+        onClickVolumeOnButton();
+        onClickVolumeOffButton();
     }
 
     //========================================================================//
@@ -89,9 +143,9 @@ public class InitialState extends State{
     @Override
     public void handleInput() {
        if(Gdx.input.getX() < 490 && Gdx.input.getY() > 1450){
-            stateManager.set(new PlayState(stateManager));
+           this.stateManager.set(new PlayState(stateManager));
         }else if(Gdx.input.getX() > 560 && Gdx.input.getY() > 1450){
-           stateManager.set(new GameoverState(stateManager));
+           this.stateManager.set(new GameoverState(stateManager));
        }
     }
 
@@ -106,7 +160,7 @@ public class InitialState extends State{
     }
 
     /**
-     * Batch initsialisieren und die Textures zeichnen
+     * Batch initsialisieren und die Textures bzw. Buttons zeichnen
      *
      * @param batch batch
      */
@@ -116,19 +170,19 @@ public class InitialState extends State{
         batch.begin();
 
         //Zeichne das Hintergrundbild an die Position 0, 0 und setze die Breite je nach Größe des Bildschirms
-        batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.draw(this.backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        //Zeichne sämtliche Buttons
-        batch.draw(playBtn, Gdx.graphics.getWidth() / 2 -460, Gdx.graphics.getHeight() / 2 - 800, 400, 250);
-        batch.draw(highscoreBtn, Gdx.graphics.getWidth() / 2 + 60 , Gdx.graphics.getHeight() / 20, 400, 250);
-        batch.draw(logo, 50, Gdx.graphics.getHeight() - 700,  Gdx.graphics.getWidth()-50, 300);
-        batch.draw(volumeOn, 900, 1600, 100,100);
-        batch.draw(volumeOff, 100, 1600, 100,100);
-
-        onClickVolumeButtons();
+        //Zeichne sämtliche Textures
+        batch.draw(this.playBtnTexture, Gdx.graphics.getWidth() / 2 -460, Gdx.graphics.getHeight() / 2 - 800, 400, 250);
+        batch.draw(this.highscoreBtn, Gdx.graphics.getWidth() / 2 + 60 , Gdx.graphics.getHeight() / 20, 400, 250);
+        batch.draw(this.logo, 50, Gdx.graphics.getHeight() - 700,  Gdx.graphics.getWidth()-50, 300);
 
         //Beende den Batch
         batch.end();
+
+        //Initialisiere Stage mit neuem Batch
+        this.stage.act(Gdx.graphics.getDeltaTime());
+        this.stage.draw();
     }
 
     /**
@@ -136,31 +190,50 @@ public class InitialState extends State{
      */
     @Override
     public void dispose() {
-        backgroundImage.dispose();
-        playBtn.dispose();
-        volumeOff.dispose();
-        volumeOn.dispose();
+        this.backgroundImage.dispose();
+        this.playBtnTexture.dispose();
+        this.volumeOffTexture.dispose();
+        this.volumeOnTexture.dispose();
+        this.stage.dispose();
+        this.song.dispose();
 
         Gdx.app.log("InitialState","InitialState disposed");
-    }
-
-    /**
-     * Methode, um die Musik bei Touch auf die entsprechenden Textures ein- oder auszuschalten
-     */
-    public void onClickVolumeButtons(){
-        if(Gdx.input.getX() > Gdx.graphics.getWidth() / 2 && Gdx.input.getY() < 400){
-            song.play();
-        }else if(Gdx.input.getX() < Gdx.graphics.getWidth() / 2 - 50 && Gdx.input.getY() < 400){
-            song.stop();
-        }
     }
 
     /**
      * Initialisiere die Musik des Spiels
      */
     public void initializeSong(){
-        song = Gdx.audio.newMusic(Gdx.files.internal("_pokemon_theme.mp3"));
-        song.setLooping(true);
-        song.setVolume(0.1f);	//10% von max. 100% Lautstärke
+        this.song = Gdx.audio.newMusic(Gdx.files.internal("_pokemon_theme.mp3"));
+        this.song.setLooping(true);
+        this.song.setVolume(0.1f);	//10% von max. 100% Lautstärke
+    }
+
+    /**
+     * EventListener für den VolumeOn-Button um die Musik abzuspielen
+     */
+    private void onClickVolumeOnButton(){
+        this.volumeOnBtn.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                song.play();
+                Gdx.app.log("VolumeOnButton", "VolumeOnButton wurde gedrückt!");
+                return true;
+            }
+        });
+    }
+
+    /**
+     * EventListener für den VolumeOff-Button um die Musik zu stoppen
+     */
+    private void onClickVolumeOffButton(){
+        this.volumeOffBtn.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                song.stop();
+                Gdx.app.log("VolumeOffButton", "VolumeOffButton wurde gedrückt!");
+                return true;
+            }
+        });
     }
 }
