@@ -22,7 +22,7 @@ public class GameoverState extends State {
         backgroundImage = new Texture("background_small.JPG");
         endImage = new Texture("gameoverFont.png");
         font = new BitmapFont();
-        font.setColor(Color.WHITE);
+        font.setColor(Color.ORANGE);
         font.getData().setScale(5);
 
         Gdx.app.log("Highscore", String.valueOf(highscore));
@@ -38,21 +38,24 @@ public class GameoverState extends State {
     @Override
     public void update(float deltaTime) {
         handleInput(); //Checkt den Input des Users
-
     }
 
     @Override
     public void render(SpriteBatch batch) {
         //Repositioniert die Kamera
         batch.getProjectionMatrix().setToOrtho2D(0, 0, Gdx.graphics.getWidth(),  Gdx.graphics.getHeight());
+
         batch.begin();
+
         batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        batch.draw(endImage,  50 , Gdx.graphics.getHeight()-750,Gdx.graphics.getWidth()-100, 300 );
+        batch.draw(endImage,  50 , Gdx.graphics.getHeight()-500,Gdx.graphics.getWidth()-100, 200 );
+
         highscore = prefs.getInteger("highscore");
         currentScore = prefs.getInteger("currentscore");
         prefs.flush();
-        font.draw(batch, "Du hast folgende Punktzahl\nerreicht: " + currentScore, 50, Gdx.graphics.getHeight()-1000);
-        font.draw(batch, "Dein aktueller Highscore\nliegt bei: " + highscore, 50, Gdx.graphics.getHeight()-1300);
+
+        font.draw(batch, "Du hast folgende Punktzahl\nerreicht: " + currentScore, 50, Gdx.graphics.getHeight()-900);
+        font.draw(batch, "Dein aktueller Highscore\nliegt bei: " + highscore, 50, Gdx.graphics.getHeight()-1200);
 
         //Beende den Batch
         batch.end();

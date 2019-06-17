@@ -160,17 +160,12 @@ public class PlayState extends State{
                 stateManager.set(new GameoverState(stateManager));
                 Gdx.app.log("Kollision", "Kollision!");
 
-                //Speichern des Scores bevor er zurückgesetzt wird
+                //Speichern des derzeitigen Scores bevor er zurückgesetzt wird
                 prefs.putInteger("currentscore", score);
                 prefs.flush();
 
                 if(score > highscore){
-                    highscore = score;
-                    prefs.putInteger("highscore", highscore);
-                    prefs.flush();
-                }else{
-                    newhighscore = highscore;
-                    prefs.putInteger("highscore", newhighscore);
+                    prefs.putInteger("highscore", score);
                     prefs.flush();
                 }
 
