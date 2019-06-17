@@ -64,7 +64,7 @@ public class PlayState extends State{
     /**
      * Highscore
      */
-    private int highscore, newhighscore;
+    private int highscore;
 
     /**
      * Schriftart für die Ausgabe des Scores
@@ -75,7 +75,6 @@ public class PlayState extends State{
      * Preferences für den Score und den Highscore
      */
     public Preferences prefs;
-
 
     //========================================================================//
     //                            Konstruktor/en                              //
@@ -97,9 +96,6 @@ public class PlayState extends State{
         font = new BitmapFont();
         font.setColor(Color.RED);
         font.getData().setScale(1);
-
-        score = 0;
-        highscore = 0;
 
         //Initialisiere die Kamera
         camera.setToOrtho(false, FlappyHorstMain.WIDTH/2, FlappyHorstMain.HEIGHT/2);
@@ -165,7 +161,11 @@ public class PlayState extends State{
                 prefs.flush();
 
                 if(score > highscore){
-                    prefs.putInteger("highscore", score);
+                    highscore = score;
+                    prefs.putInteger("highscore", highscore);
+                    prefs.flush();
+                }else{
+                    prefs.putInteger("highscore", highscore);
                     prefs.flush();
                 }
 
@@ -184,7 +184,6 @@ public class PlayState extends State{
      */
     @Override
     public void render(SpriteBatch batch) {
-
         //Fokussiere Kamera auf einen Ausschnitt des Screens
         batch.setProjectionMatrix(camera.combined);
 
@@ -205,8 +204,6 @@ public class PlayState extends State{
 
         //Zeichne den Score auf den Screen
         font.draw(batch, String.valueOf(score), camera.position.x - 100, camera.position.y - 150);
-
-        //student.test();
 
         //Beende den Batch
         batch.end();

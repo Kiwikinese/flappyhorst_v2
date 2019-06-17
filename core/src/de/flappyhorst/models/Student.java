@@ -119,7 +119,7 @@ public class Student {
     //Fallen ins "Unendliche" verhindern
     if(position.y < 0 || position.y > 380){
         position.y = 0;
-        position.x = position.x + 100;
+        position.x = position.x + 70;
     }
 
     //Geschwindigkeit des Fallens anpassen an die Framerate
