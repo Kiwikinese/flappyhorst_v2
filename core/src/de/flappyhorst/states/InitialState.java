@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import de.flappyhorst.FlappyHorstMain;
+
 //=========================================================================================//
 //                                     InitialState                                        //
 //=========================================================================================//
@@ -125,8 +127,7 @@ public class InitialState extends State{
         this.stage.addActor(volumeOffBtn);
         Gdx.input.setInputProcessor(stage);
 
-        //Song initialisieren
-        initializeSong();
+
 
         //EventListener für die verschiedenen Buttons
         //onClickVolumeOnButton();
@@ -200,14 +201,7 @@ public class InitialState extends State{
         Gdx.app.log("InitialState","InitialState disposed");
     }
 
-    /**
-     * Initialisiere die Musik des Spiels
-     */
-    public void initializeSong(){
-        this.song = Gdx.audio.newMusic(Gdx.files.internal("_pokemon_theme.mp3"));
-        this.song.setLooping(true);
-        this.song.setVolume(0.1f);	//10% von max. 100% Lautstärke
-    }
+
 
 /*    *//**
      * EventListener für den VolumeOn-Button um die Musik abzuspielen
@@ -232,10 +226,10 @@ public class InitialState extends State{
             @Override
             public boolean handle(Event event) {
                 if(aus){
-                    song.play();
+                    FlappyHorstMain.SONG.play();
                     aus=false;
                 }else {
-                    song.stop();
+                    FlappyHorstMain.SONG.stop();
                     aus=true;
                 }
                 String ausS=String.valueOf(aus);

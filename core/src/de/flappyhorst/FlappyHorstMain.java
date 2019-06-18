@@ -56,6 +56,8 @@ public class FlappyHorstMain extends ApplicationAdapter {
 		//Initialisiere den StateManager und pushe auf den InitialState
 		stateManager = new StateManager();
 		stateManager.push(new InitialState(stateManager));
+
+		initializeSong();
 	}
 
 	@Override
@@ -76,5 +78,13 @@ public class FlappyHorstMain extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 
+	}
+	/**
+	 * Initialisiere die Musik des Spiels
+	 */
+	public void initializeSong(){
+		SONG = Gdx.audio.newMusic(Gdx.files.internal("_pokemon_theme.mp3"));
+		SONG.setLooping(true);
+		SONG.setVolume(0.1f);	//10% von max. 100% Lautstärke
 	}
 }
