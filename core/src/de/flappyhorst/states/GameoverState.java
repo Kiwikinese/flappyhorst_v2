@@ -175,6 +175,10 @@ public class GameoverState extends State {
         this.font.draw(batch, "Du hast folgende Punktzahl\nerreicht: " + currentScore, 50, Gdx.graphics.getHeight()-600);
         this.font.draw(batch, "Dein aktueller Highscore\nliegt bei: " + highscore, 50, Gdx.graphics.getHeight()-900);
 
+        prefs.putInteger("newHS", highscore);
+        this.prefs.flush();
+
+
         //Beende den Batch
         batch.end();
 

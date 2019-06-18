@@ -160,13 +160,14 @@ public class PlayState extends State{
                 prefs.putInteger("currentscore", score);
                 prefs.flush();
 
-                if(score > highscore){
+
+                if(score > prefs.getInteger("newHS",highscore)){
                     highscore = score;
                     prefs.putInteger("highscore", highscore);
                     prefs.flush();
-                }else{
-                    prefs.putInteger("highscore", highscore);
-                    prefs.flush();
+                }else{/* prefs.putInteger("highscore", highscore);
+                    prefs.flush();*/
+
                 }
 
                 score = 0;

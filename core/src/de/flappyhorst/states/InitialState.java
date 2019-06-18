@@ -129,7 +129,7 @@ public class InitialState extends State{
         initializeSong();
 
         //EventListener für die verschiedenen Buttons
-        onClickVolumeOnButton();
+        //onClickVolumeOnButton();
         onClickVolumeOffButton();
     }
 
@@ -209,9 +209,9 @@ public class InitialState extends State{
         this.song.setVolume(0.1f);	//10% von max. 100% Lautstärke
     }
 
-    /**
+/*    *//**
      * EventListener für den VolumeOn-Button um die Musik abzuspielen
-     */
+     *//*
     private void onClickVolumeOnButton(){
         this.volumeOnBtn.addListener(new EventListener() {
             @Override
@@ -221,17 +221,25 @@ public class InitialState extends State{
                 return true;
             }
         });
-    }
+    }*/
 
     /**
      * EventListener für den VolumeOff-Button um die Musik zu stoppen
      */
+    boolean aus=true;
     private void onClickVolumeOffButton(){
         this.volumeOffBtn.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                song.stop();
-                Gdx.app.log("VolumeOffButton", "VolumeOffButton wurde gedrückt!");
+                if(aus){
+                    song.play();
+                    aus=false;
+                }else {
+                    song.stop();
+                    aus=true;
+                }
+                String ausS=String.valueOf(aus);
+                Gdx.app.log("VolumeOffButton", "VolumeOffButton wurde gedrückt!"+ausS);
                 return true;
             }
         });
