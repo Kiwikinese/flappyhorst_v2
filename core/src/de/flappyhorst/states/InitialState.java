@@ -5,7 +5,6 @@ package de.flappyhorst.states;
 //========================================================================//
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,7 +22,7 @@ import de.flappyhorst.FlappyHorstMain;
 //=========================================================================================//
 
 /**
- * Hauptmenü des Spiels. Von hier aus kann über den Play-Button das Spiel gestartet werden. Über den
+ * InitialState bildet das Hauptmenü des Spiels. Von hier aus kann über den Play-Button das Spiel gestartet werden. Über den
  * Score-Button können sich die aktuellen Scores angezeigt werden lassen.
  * Auch die Musik kann über die Sound-Buttons eingeschaltet oder ausgeschaltet werden.
  *
@@ -60,29 +59,44 @@ public class InitialState extends State{
     private Texture volumeOnTexture, volumeOffTexture;
 
     /**
-     * Musik des Spiels
-     */
-    private Music song;
-
-    /**
      * Stage
      */
     private Stage stage;
 
     /**
-     * TextureRegion für die Buttons
+     * TextureRegion für den VolumeOn Button
      */
-    private TextureRegion volumeOnBtnRegion, volumeOffBtnRegion;
+    private TextureRegion volumeOnBtnRegion;
 
     /**
-     * TextureRegionDrawable für die Buttons
+     * TextureRegion für den VolumeOff Button
      */
-    private TextureRegionDrawable volumeOnBtnRegionDrawable, volumeOffBtnRegionDrawable;
+    private TextureRegion volumeOffBtnRegion;
 
     /**
-     * ImageButton für die Buttons
+     * TextureRegionDrawable für den VolumeOn Button
      */
-    private ImageButton volumeOnBtn, volumeOffBtn;
+    private TextureRegionDrawable volumeOnBtnRegionDrawable;
+
+    /**
+     * TextureRegionDrawable für den VolumeOff Button
+     */
+    private TextureRegionDrawable volumeOffBtnRegionDrawable;
+
+    /**
+     * ImageButton für den VolumeOn Button
+     */
+    private ImageButton volumeOnBtn;
+
+    /**
+     * ImageButton für den VolumeOff Button
+     */
+    private ImageButton volumeOffBtn;
+
+    /**
+     * Boolean, der überprüft ob die Musik an oder aus ist
+     */
+    private boolean songIsPlaying;
 
     //========================================================================//
     //                            Konstruktor/en                              //
@@ -109,7 +123,7 @@ public class InitialState extends State{
         this.volumeOnBtnRegion = new TextureRegion(volumeOnTexture);
         this.volumeOnBtnRegionDrawable = new TextureRegionDrawable(volumeOnBtnRegion);
         this.volumeOnBtn = new ImageButton(volumeOnBtnRegionDrawable);
-        this.volumeOnBtn.setPosition(900, 1600);
+        this.volumeOnBtn.setPosition(100, 1600);
         this.volumeOnBtn.setTransform(true);
         this.volumeOnBtn.setScale(0.2f);
 
@@ -117,20 +131,17 @@ public class InitialState extends State{
         this.volumeOffBtnRegion = new TextureRegion(volumeOffTexture);
         this.volumeOffBtnRegionDrawable = new TextureRegionDrawable(volumeOffBtnRegion);
         this.volumeOffBtn = new ImageButton(volumeOffBtnRegionDrawable);
-        this.volumeOffBtn.setPosition(900, 1500);
+        this.volumeOffBtn.setPosition(900, 1600);
         this.volumeOffBtn.setTransform(true);
         this.volumeOffBtn.setScale(0.2f);
 
         //Initialisiere die Stage und füge sämtliche Buttons der Klasse InitialState hinzu
         this.stage = new Stage(new ScreenViewport());
         this.stage.addActor(volumeOnBtn);
-        this.stage.addActor(volumeOffBtn);
+        //this.stage.addActor(volumeOffBtn);
         Gdx.input.setInputProcessor(stage);
 
-
-
         //EventListener für die verschiedenen Buttons
-        //onClickVolumeOnButton();
         onClickVolumeOffButton();
     }
 
@@ -161,7 +172,7 @@ public class InitialState extends State{
     }
 
     /**
-     * Batch initsialisieren und die Textures bzw. Buttons zeichnen
+     * Batch initialisieren und die Textures bzw. Buttons zeichnen
      *
      * @param batch batch
      */
@@ -187,7 +198,9 @@ public class InitialState extends State{
     }
 
     /**
-     * Wenn zu einem anderen State gewechselt wird, rufen wir diese Methode auf, um die Textures zu entfernen
+     * Wenn zu einem anderen State gewechselt wird, rufen wir diese Methode auf, um dem State zu
+     * clearen um somit Speicherplatz zu sparen
+     *
      */
     @Override
     public void dispose() {
@@ -196,44 +209,28 @@ public class InitialState extends State{
         this.volumeOffTexture.dispose();
         this.volumeOnTexture.dispose();
         this.stage.dispose();
-        this.song.dispose();
+        FlappyHorstMain.SONG.dispose();
 
         Gdx.app.log("InitialState","InitialState disposed");
     }
 
-
-
-/*    *//**
-     * EventListener für den VolumeOn-Button um die Musik abzuspielen
-     *//*
-    private void onClickVolumeOnButton(){
+    /**
+     * EventListener für den VolumeOff-Button um die Musik zu starten bzw. zu stoppen
+     */
+    private void onClickVolumeOffButton(){
         this.volumeOnBtn.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                song.play();
-                Gdx.app.log("VolumeOnButton", "VolumeOnButton wurde gedrückt!");
-                return true;
-            }
-        });
-    }*/
-
-    /**
-     * EventListener für den VolumeOff-Button um die Musik zu stoppen
-     */
-    boolean aus=true;
-    private void onClickVolumeOffButton(){
-        this.volumeOffBtn.addListener(new EventListener() {
-            @Override
-            public boolean handle(Event event) {
-                if(aus){
+                if(!songIsPlaying){
                     FlappyHorstMain.SONG.play();
-                    aus=false;
-                }else {
+                    songIsPlaying = true;
+                }else{
                     FlappyHorstMain.SONG.stop();
-                    aus=true;
+                    songIsPlaying = false;
                 }
-                String ausS=String.valueOf(aus);
-                Gdx.app.log("VolumeOffButton", "VolumeOffButton wurde gedrückt!"+ausS);
+
+                String songIsPlayingString = String.valueOf(songIsPlaying);
+                Gdx.app.log("VolumeOffButton", "VolumeOffButton wurde gedrückt!"+ songIsPlayingString);
                 return true;
             }
         });

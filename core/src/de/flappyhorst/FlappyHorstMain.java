@@ -3,6 +3,7 @@ package de.flappyhorst;
 //========================================================================//
 //                            Imports                                     //
 //========================================================================//
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -16,6 +17,13 @@ import de.flappyhorst.states.StateManager;
 //                               FlappyHorst                                               //
 //=========================================================================================//
 
+/**
+ * FlappyHorstMain ist die Hauptklasse des Spiels. Hier wird das Spielfeld des Spiels
+ * mit einer festgelegten Höhe und Breite, sowie der Song des Spiels initialisiert.
+ * Darüber hinaus wird hier auch der StateManger initialisiert, um zwischen den verschiedenen
+ * States (InitialState, PlayState und GameOverState) zu switchen.
+ *
+ */
 public class FlappyHorstMain extends ApplicationAdapter {
 
 	//========================================================================//
@@ -33,21 +41,28 @@ public class FlappyHorstMain extends ApplicationAdapter {
 	public static final int HEIGHT = 800;
 
 	/**
-	 * SpriteBatch
+	 * SpriteBatch, um auf dem Spielfeld sämtliche Objekte zu zeichnen
 	 */
 	private SpriteBatch batch;
 
 	/**
-	 * StateManager, um entsprechende Methoden (pop(), push(), update(), render() und set()) auf dem Stack aufzurufen
+	 * StateManager, um entsprechende Methoden (pop(), push(), update(), render() und set())
+	 * auf dem Stack aufzurufen
 	 */
 	private StateManager stateManager;
 
-	public static Music SONG;
+	/**
+	 * Lied des Spiels
+	 */
+	public static Music SONG; //Quelle: https://www.youtube.com/watch?v=wR3gaYTqkDQ
 
 	//========================================================================//
 	//                             Methoden                                   //
 	//========================================================================//
 
+	/**
+	 * create Methode, um die Variablen/Objekte zu initialisieren
+	 */
 	@Override
 	public void create () {
 		//Initialisiere den Batch
@@ -73,13 +88,6 @@ public class FlappyHorstMain extends ApplicationAdapter {
 	}
 
 	/**
-	 * Wenn zu einem anderen State gewechselt wird, rufen wir diese Methode auf, um die Textures zu entfernen
-	 */
-	@Override
-	public void dispose () {
-
-	}
-	/**
 	 * Initialisiere die Musik des Spiels
 	 */
 	public void initializeSong(){
@@ -87,4 +95,15 @@ public class FlappyHorstMain extends ApplicationAdapter {
 		SONG.setLooping(true);
 		SONG.setVolume(0.1f);	//10% von max. 100% Lautstärke
 	}
+
+	/**
+	 * Wenn zu einem anderen State gewechselt wird, rufen wir diese Methode auf, um dem State zu
+	 * clearen um somit Speicherplatz zu sparen
+	 *
+	 */
+	@Override
+	public void dispose () {
+		batch.dispose();
+	}
+
 }

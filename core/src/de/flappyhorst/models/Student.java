@@ -1,10 +1,3 @@
-/**
- * Die Klasse Student repräsentiert den Spielecharakter im Spiel. Hier werden sämtliche Werte,
- * die für den Spielecharakter notwendig sind (z.B. Aussehen, Geschwindigkeit, Positionierung, etc.) festgelegt.
- *
- */
-
-
 package de.flappyhorst.models;
 
 //========================================================================//
@@ -21,6 +14,11 @@ import com.badlogic.gdx.math.Vector3;
 //                                       Student                                           //
 //=========================================================================================//
 
+/**
+ * Die Klasse Student repräsentiert den Spielecharakter im Spiel. Hier werden sämtliche Werte,
+ * die für den Spielecharakter notwendig sind (z.B. Aussehen, Geschwindigkeit, Positionierung, etc.) festgelegt.
+ *
+ */
 public class Student {
 
     //========================================================================//
