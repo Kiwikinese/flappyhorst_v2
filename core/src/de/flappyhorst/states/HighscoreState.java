@@ -94,7 +94,7 @@ public class HighscoreState extends State {
         super(stateManager);
 
         //Initialisiere die Textures
-        this.endImageTexture = new Texture("gameoverFont.png");
+        this.endImageTexture = new Texture("highscoreFont.png");
         this.closeBtnTexture = new Texture("close.png");
 
         //Initialisiere das Bitmap
