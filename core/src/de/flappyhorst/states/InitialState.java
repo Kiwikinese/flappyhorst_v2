@@ -157,7 +157,7 @@ public class InitialState extends State{
        if(Gdx.input.getX() < 490 && Gdx.input.getY() > 1450){
            this.stateManager.set(new PlayState(stateManager));
         }else if(Gdx.input.getX() > 560 && Gdx.input.getY() > 1450){
-           this.stateManager.set(new GameoverState(stateManager));
+           this.stateManager.set(new HighscoreState(stateManager));
        }
     }
 
