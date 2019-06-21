@@ -8,6 +8,12 @@ import java.util.Stack;
 //                                 StateManager                                            //
 //=========================================================================================//
 
+/**
+ * Die Klasse StatMangaer initialisert einen Stack von States und die entsprechenden Methoden, um
+ * von diesem Stack States zu entfernen, hinzuzufügen und diese durch Aufruf der Methoden in den
+ * verschiedenen State-Klassen die Änderungen zu aktualisieren.
+ *
+ */
 public class StateManager {
 
     //========================================================================//

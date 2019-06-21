@@ -22,8 +22,8 @@ import de.flappyhorst.FlappyHorstMain;
 //=========================================================================================//
 
 /**
- * InitialState bildet das Hauptmenü des Spiels. Von hier aus kann über den Play-Button das Spiel gestartet werden. Über den
- * Score-Button können sich die aktuellen Scores angezeigt werden lassen.
+ * InitialState bildet das Hauptmenü des Spiels. Von hier aus kann über den Play-Button das Spiel
+ * gestartet werden. Über den Score-Button können sich die aktuellen Scores angezeigt werden lassen.
  * Auch die Musik kann über die Sound-Buttons eingeschaltet oder ausgeschaltet werden.
  *
  */
@@ -131,7 +131,7 @@ public class InitialState extends State{
         this.volumeOffBtnRegion = new TextureRegion(volumeOffTexture);
         this.volumeOffBtnRegionDrawable = new TextureRegionDrawable(volumeOffBtnRegion);
         this.volumeOffBtn = new ImageButton(volumeOffBtnRegionDrawable);
-        this.volumeOffBtn.setPosition(900, 1600);
+        this.volumeOffBtn.setPosition(100, 1600);
         this.volumeOffBtn.setTransform(true);
         this.volumeOffBtn.setScale(0.2f);
 

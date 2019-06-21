@@ -20,6 +20,12 @@ import java.util.Random;
 //                                       BookStack                                         //
 //=========================================================================================//
 
+/**
+ * Die Klasse BookStack repräsentiert einen Bücherstapel im Spiel, über den man mit dem
+ * Spielecharakter {@link Student} versuchen muss zu springen ohne diesen zu berühren.
+ * Es werden sämtliche Werte für diesen festgelegt wie z.B. das Aussehen, die Positionierung etc.
+ *
+ */
 public class BookStack {
 
     //========================================================================//
@@ -81,13 +87,12 @@ public class BookStack {
      */
     private Rectangle rectangleBottomBookStack;
 
-
     //========================================================================//
     //                            Konstruktor/en                              //
     //========================================================================//
 
     /**
-     * Konstruktor
+     * Konstruktor der Klasse BookStack
      *
      * @param x x-Achse
      */
@@ -96,29 +101,24 @@ public class BookStack {
         this.bottomBookStack = new Texture("Bücherstapel.png");
         this.random = new Random();
 
-        // Initialisiere die Positionen des Bottom- und des Top-BookStacks
-        // Top
+        //Initialisiere die Positionen des Bottom- und des Top-BookStacks
         this.positionTopBookStack = new Vector2(x, random.nextInt(FLUCTUATION) + GAP_BETWEEN_STACKS + LOWEST_OPENING);
-
-        // Bottom
         this.positionBottomBookStack = new Vector2(x, positionTopBookStack.y - GAP_BETWEEN_STACKS - bottomBookStack.getHeight());
 
-        // Initialisiere die Rechtecke, die um die Bücherstapel liegen, damit eine Kollision mit dem Spielecharakter erkannt werden kann
-        // Top
+        /*Initialisiere die Rechtecke, die um die Bücherstapel liegen, damit eine Kollision mit dem
+          Spielecharakter erkannt werden kann für den oberen und den unteren Bücherstapel.*/
         this.rectangleTopBookStack = new Rectangle(
                 this.positionTopBookStack.x,
                 this.positionTopBookStack.y,
                 this.topBookStack.getWidth(),
                 this.topBookStack.getHeight());
 
-        // Bottom
         this.rectangleBottomBookStack = new Rectangle(
                 this.positionBottomBookStack.x,
                 this.positionBottomBookStack.y,
                 this.bottomBookStack.getWidth(),
                 this.bottomBookStack.getHeight());
     }
-
 
     //========================================================================//
     //                             Methoden                                   //

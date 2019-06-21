@@ -23,9 +23,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 //=========================================================================================//
 
 /**
- * GameOver-Screen des Spiels. Sobald der Spieler mit dem Spielecharakter mit dem Boden, der oberen Grenze des
- * Bildschirms oder den Bücherstapeln kollidiert, wird der GameOver-Screen aufgerufen. Hier werden dem Spieler
- * sein zuletzt erreichter Score und sein Highscore angezeigt.
+ * GameOver-Screen des Spiels. Sobald der Spieler mit dem Spielecharakter mit dem Boden,
+ * der oberen Grenze des Bildschirms oder den Bücherstapeln kollidiert, wird der GameOver-Screen
+ * aufgerufen. Hier werden dem Spieler sein zuletzt erreichter Score und sein Highscore angezeigt.
  *
  */
 public class GameoverState extends State {

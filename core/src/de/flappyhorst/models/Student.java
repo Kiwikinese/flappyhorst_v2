@@ -4,6 +4,8 @@ package de.flappyhorst.models;
 //                            Imports                                     //
 //========================================================================//
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
@@ -16,7 +18,8 @@ import com.badlogic.gdx.math.Vector3;
 
 /**
  * Die Klasse Student repräsentiert den Spielecharakter im Spiel. Hier werden sämtliche Werte,
- * die für den Spielecharakter notwendig sind (z.B. Aussehen, Geschwindigkeit, Positionierung, etc.) festgelegt.
+ * die für den Spielecharakter notwendig sind (z.B. Aussehen, Geschwindigkeit, Positionierung, etc.)
+ * festgelegt.
  *
  */
 public class Student {
@@ -55,18 +58,22 @@ public class Student {
      */
     private Rectangle rectangle;
 
-
+    /**
+     * Circle für die Test-Methode
+     */
     private Circle circle;
+
+    /**
+     * Shape-Renderer für die Test-Methode
+     */
     private ShapeRenderer shapeRenderer;
-
-
 
     //========================================================================//
     //                            Konstruktor/en                              //
     //========================================================================//
 
     /**
-     * Konstruktor
+     * Konstruktor der Klasse Student
      *
      * @param x Position x-Koordinate
      * @param y Position y-Koordinate
@@ -80,22 +87,11 @@ public class Student {
 
         circle = new Circle();
         shapeRenderer = new ShapeRenderer();
-
     }
-
 
     //========================================================================//
     //                             Methoden                                   //
     //========================================================================//
-
-
-/*    public void test(){
-        circle.set(Gdx.graphics.getWidth() /2 - 260 , position.y + student.getHeight(), student.getWidth());
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.circle(circle.x, circle.y, circle.radius);
-        shapeRenderer.end();
-    }*/
 
     /**
      * Methode, um die Position des Studenten zurückzusetzen
@@ -106,7 +102,6 @@ public class Student {
         //Fall des Studenten simulieren
         velocity.add(0, GRAVITY,0);
     }
-
     velocity.scl(deltaTime);
 
     //Setze Position
@@ -138,6 +133,17 @@ public class Student {
      */
     public void dispose(){
         student.dispose();
+    }
+
+    /**
+     * Test-Methode, um visuell erkenntlich zu machen, wie die Textures gerendert werden
+     */
+    public void test(){
+        circle.set(Gdx.graphics.getWidth() /2 - 260 , position.y + student.getHeight(), student.getWidth());
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.circle(circle.x, circle.y, circle.radius);
+        shapeRenderer.end();
     }
 
     //========================================================================//

@@ -14,6 +14,18 @@ import com.badlogic.gdx.math.Vector3;
 
 public abstract class State {
 
+    /**
+     * Jeder State im Spiel:
+     *
+     * {@link de.flappyhorst.states.InitialState},
+     * {@link de.flappyhorst.states.PlayState},
+     * {@link de.flappyhorst.states.HighscoreState} und
+     * {@link de.flappyhorst.states.GameoverState}
+     *
+     * erbt von der Klasse State. Hier werden die Kamere, die Maus und der StateManager
+     * initialisier, die jeder State benötigt.
+     */
+
     //========================================================================//
     //                         Globale Variablen                              //
     //========================================================================//

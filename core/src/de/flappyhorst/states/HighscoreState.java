@@ -7,6 +7,7 @@ package de.flappyhorst.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -28,6 +29,10 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
  *
  */
 public class HighscoreState extends State {
+
+    //========================================================================//
+    //                         Globale Variablen                              //
+    //========================================================================//
 
     /**
      * Texture des Logos
@@ -177,7 +182,6 @@ public class HighscoreState extends State {
         prefs.putInteger("newHS", highscore);
         this.prefs.flush();
 
-
         //Beende den Batch
         batch.end();
 
@@ -191,6 +195,8 @@ public class HighscoreState extends State {
      */
     @Override
     public void dispose() {
+        stage.dispose();
+
         Gdx.app.log("GameOverState","GameOverState disposed");
     }
 

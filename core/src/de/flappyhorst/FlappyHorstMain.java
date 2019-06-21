@@ -21,7 +21,12 @@ import de.flappyhorst.states.StateManager;
  * FlappyHorstMain ist die Hauptklasse des Spiels. Hier wird das Spielfeld des Spiels
  * mit einer festgelegten Höhe und Breite, sowie der Song des Spiels initialisiert.
  * Darüber hinaus wird hier auch der StateManger initialisiert, um zwischen den verschiedenen
- * States (InitialState, PlayState und GameOverState) zu switchen.
+ * States
+ * {@link de.flappyhorst.states.InitialState},
+ * {@link de.flappyhorst.states.PlayState},
+ * {@link de.flappyhorst.states.HighscoreState} und
+ * {@link de.flappyhorst.states.GameoverState}
+ * zu switchen.
  *
  */
 public class FlappyHorstMain extends ApplicationAdapter {
