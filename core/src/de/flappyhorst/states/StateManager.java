@@ -9,7 +9,7 @@ import java.util.Stack;
 //=========================================================================================//
 
 /**
- * Die Klasse StatMangaer initialisert einen Stack von States und die entsprechenden Methoden, um
+ * Die Klasse StatManager initialisert einen Stack von States und die entsprechenden Methoden, um
  * von diesem Stack States zu entfernen, hinzuzufügen und diese durch Aufruf der Methoden in den
  * verschiedenen State-Klassen die Änderungen zu aktualisieren.
  *
@@ -21,7 +21,7 @@ public class StateManager {
     //========================================================================//
 
     /**
-     * Stack von den verschiedenen States des Spiels
+     * Stack für die verschiedenen States des Spiels
      */
     private Stack<State> states;
 

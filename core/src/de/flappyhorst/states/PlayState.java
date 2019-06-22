@@ -20,6 +20,14 @@ import de.flappyhorst.models.Student;
 //                                       PlayState                                         //
 //=========================================================================================//
 
+/**
+ * Die Klasse PlayState repräsentiert das eigentliche Spiel. Hier werden sowohl der
+ * Spielecharakter{@link Student}, als auch die Bücherstapel {@link BookStack} initialisiert.
+ * Sobald der Spielecharakter mit dem Boden, dem oberen Bildschirmrand oder einem Bücherstapel
+ * kollidiert öffnet sich der GameOver-Screen {@link GameoverState}.
+ * Für jeden überwundenen Bücherstapel bekommt der Spieler einen Punkt, der in der unteren linken Ecke
+ * des Spielfelds angezeigt wird.
+ */
 public class PlayState extends State{
 
     //========================================================================//
@@ -175,7 +183,7 @@ public class PlayState extends State{
     }
 
     /**
-     * Batch initsialisieren und die Textures zeichnen
+     * Batch initialisieren und die Textures zeichnen
      *
      * @param batch batch
      */
