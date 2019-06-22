@@ -16,7 +16,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 /**
  * Die Klasse AndroidLauncher verweist auf die Klasse {@link FlappyHorstMain}, die wiederum auf den
  * Startscreen des Spiels {@link de.flappyhorst.states.InitialState} pusht.
- * Somit dient diese Klasse AndroidLauncher lediglich als Bindeglied für das Framework LibGdx.
+ * Somit dient die Klasse AndroidLauncher lediglich als Bindeglied für das Framework LibGdx.
  *
  */
 public class AndroidLauncher extends AndroidApplication {
